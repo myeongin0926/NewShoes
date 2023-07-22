@@ -4,7 +4,7 @@ import { FiUser, FiShoppingCart } from "react-icons/fi";
 
 const StyleUserActions = styled.div`
   position: absolute;
-  top: ${(props) => (props.simple ? "13px" : "35px")};
+  top: 12px;
   right: 0;
   display: flex;
   gap: 12px;
@@ -17,14 +17,14 @@ const StyleUserActions = styled.div`
     align-items: center;
     gap: 2px;
     &:hover {
-      color: var(--gray-900);
+      color: var(--positive);
     }
   }
 `;
 
-export default function UserActions({ simple }) {
+export default function UserActions() {
   return (
-    <StyleUserActions simple={simple ? 1 : 0}>
+    <StyleUserActions>
       <Link to="/cart">
         <FiShoppingCart />
       </Link>

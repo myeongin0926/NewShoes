@@ -5,8 +5,8 @@ import UserActions from "./UserActions";
 import { useEffect, useState } from "react";
 
 const StyleHeader = styled.header`
-  width: var(--inner);
-  height: 200px;
+  width: ${(props) => (props.simple ? "80%" : "100%")};
+  height: ${(props) => (props.simple ? "40px" : "auto")};
   display: flex;
   flex-direction: column;
   left: 0;
@@ -20,6 +20,7 @@ const StyleHeader = styled.header`
 
 const StyleLogo = styled.h1`
   margin-left: 20px;
+  display: ${(props) => (props.simple ? "none" : "block")};
   img {
     width: 80px;
   }
@@ -29,7 +30,7 @@ export default function Header() {
   const [simpleHeader, setSimpleHeader] = useState(false);
   useEffect(() => {
     function onScroll() {
-      if (window.scrollY > 100) setSimpleHeader(true);
+      if (window.scrollY > 110) setSimpleHeader(true);
       else setSimpleHeader(false);
     }
     window.addEventListener("scroll", onScroll);
@@ -37,22 +38,13 @@ export default function Header() {
   });
   return (
     <StyleHeader simple={simpleHeader ? 1 : 0}>
-      {simpleHeader === false ? (
-        <>
-          <Link to="/">
-            <StyleLogo>
-              <img src="/images/NsLogo.png" alt="logo" />
-            </StyleLogo>
-          </Link>
-          <UserActions />
-          <Navbar />
-        </>
-      ) : (
-        <>
-          <UserActions simple />
-          <Navbar />
-        </>
-      )}
+      <Link to="/">
+        <StyleLogo simple={simpleHeader ? 1 : 0}>
+          <img src="/images/NsLogo.png" alt="logo" />
+        </StyleLogo>
+      </Link>
+      <UserActions />
+      <Navbar />
     </StyleHeader>
   );
 }

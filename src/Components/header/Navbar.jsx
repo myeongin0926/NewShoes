@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 const StyleNavbar = styled.nav`
   display: flex;
-  gap: 100px;
+  gap: 40px;
 `;
 
 export default function Navbar() {
