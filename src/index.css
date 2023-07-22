@@ -7,7 +7,7 @@
   -webkit-text-size-adjust: 100%;
 }
 html {
-  height: 10000px;
+  min-height: 100vh;
   font-family: "Roboto Condensed", sans-serif;
   line-height: 1.5;
   font-weight: 300;
@@ -35,4 +35,7 @@ input {
 }
 a {
   text-decoration: none;
+}
+::-webkit-scrollbar {
+  width: 0px;
 }

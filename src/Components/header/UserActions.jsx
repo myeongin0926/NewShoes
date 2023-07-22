@@ -11,7 +11,7 @@ const StyleUserActions = styled.div`
   a {
     color: var(--primary);
     font-weight: 500;
-    font-size: 30px;
+    font-size: 27px;
     transition: all.2s;
     display: flex;
     align-items: center;

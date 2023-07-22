@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { Link, useParams } from "react-router-dom";
-import scrollToTop from "./func/ScrollToTop";
+import scrollToTop from "../func/scrollToTop";
 const StyleNavButton = styled.button`
   cursor: pointer;
   transition: 0.15s;
