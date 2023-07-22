@@ -19,9 +19,9 @@ const router = createBrowserRouter([
       { path: "/products/:keyword", element: <Products /> },
       { path: "/detail/:id", element: <ProductDetail /> },
       { path: "/cart", element: <Cart /> },
-      { path: "/login", element: <Login /> },
     ],
   },
+  { path: "/login", element: <Login /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);

@@ -1,17 +1,17 @@
-import React from "react";
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { BiUser, BiCart } from "react-icons/bi";
+import { FiUser, FiShoppingCart } from "react-icons/fi";
+
 const StyleUserActions = styled.div`
   position: absolute;
-  top: 5px;
+  top: ${(props) => (props.simple ? "13px" : "35px")};
   right: 0;
   display: flex;
-  gap: 10px;
+  gap: 12px;
   a {
-    color: var(--gray-700);
+    color: var(--primary);
     font-weight: 500;
-    font-size: 15px;
+    font-size: 27px;
     transition: all.2s;
     display: flex;
     align-items: center;
@@ -22,16 +22,14 @@ const StyleUserActions = styled.div`
   }
 `;
 
-export default function UserActions() {
+export default function UserActions({ simple }) {
   return (
-    <StyleUserActions>
+    <StyleUserActions simple={simple ? 1 : 0}>
       <Link to="/cart">
-        <BiCart />
-        장바구니
+        <FiShoppingCart />
       </Link>
       <Link to="/login">
-        <BiUser />
-        로그인
+        <FiUser />
       </Link>
     </StyleUserActions>
   );
