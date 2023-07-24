@@ -3,15 +3,14 @@ import { Link } from "react-router-dom";
 import { FiUser, FiShoppingCart } from "react-icons/fi";
 
 const StyleUserActions = styled.div`
-  position: absolute;
-  top: 12px;
-  right: 0;
+  right: 10px;
   display: flex;
   gap: 12px;
+  margin-top: 7px;
   a {
     color: var(--primary);
     font-weight: 500;
-    font-size: 27px;
+    font-size: 25px;
     transition: all.2s;
     display: flex;
     align-items: center;
@@ -22,13 +21,13 @@ const StyleUserActions = styled.div`
   }
 `;
 
-export default function UserActions() {
+export default function UserActions({ loginModalHandler }) {
   return (
     <StyleUserActions>
       <Link to="/cart">
         <FiShoppingCart />
       </Link>
-      <Link to="/login">
+      <Link onClick={() => loginModalHandler(true)}>
         <FiUser />
       </Link>
     </StyleUserActions>

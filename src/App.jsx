@@ -1,28 +1,36 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
-import Footer from "./Components/Footer";
+import Login from "./pages/Login";
+import { useState } from "react";
 const StyleApp = styled.main`
   min-height: 100vh;
-  width: var(--inner);
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  & > div {
+  & > main {
+    margin: 0 auto;
+    width: var(--inner);
     flex: 1;
+    padding-top: 60px;
+    position: relative;
   }
 `;
 
 function App() {
+  const [loginModal, setLoginModal] = useState(false);
+  const loginModalHandler = (boo) => {
+    setLoginModal(boo);
+  };
+
   return (
     <>
       <StyleApp>
-        <Header />
-        <div>
+        <Header loginModalHandler={loginModalHandler} />
+        <main>
           <Outlet />
-        </div>
+        </main>
       </StyleApp>
-      <Footer />
+      {loginModal && <Login loginModalHandler={loginModalHandler} />}
     </>
   );
 }

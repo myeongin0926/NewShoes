@@ -21,7 +21,6 @@ const router = createBrowserRouter([
       { path: "/cart", element: <Cart /> },
     ],
   },
-  { path: "/login", element: <Login /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);

@@ -21,17 +21,23 @@ html {
   --gray-700: #828282;
   --gray-900: #2b2b2b;
   --inner: 80%;
+  --secondary: #3029ff;
+  --secondary-light: #0084ff;
 }
 
 * {
   margin: 0;
   padding: 0;
 }
-
+a {
+  color: black;
+  text-decoration: none;
+}
 button,
 input {
   background-color: transparent;
   border: none;
+  transition: 0.2s;
 }
 a {
   text-decoration: none;
@@ -45,10 +51,10 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--positive);
+  background: var(--gray-700);
 
   border-radius: 20px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary);
+  background: var(--gray-900);
 }
