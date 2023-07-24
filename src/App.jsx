@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
-import Login from "./pages/Login";
+import LoginModal from "./pages/LoginModal";
 import { useState } from "react";
 const StyleApp = styled.main`
   min-height: 100vh;
@@ -21,6 +21,7 @@ function App() {
   const loginModalHandler = (boo) => {
     setLoginModal(boo);
   };
+  console.log(loginModal);
 
   return (
     <>
@@ -30,7 +31,7 @@ function App() {
           <Outlet />
         </main>
       </StyleApp>
-      {loginModal && <Login loginModalHandler={loginModalHandler} />}
+      {loginModal && <LoginModal loginModalHandler={loginModalHandler} />}
     </>
   );
 }

@@ -1,5 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { Oval } from "react-loader-spinner";
+
+const apiKey = import.meta.env.VITE_APP_FIREBASE_API_KEY;
+const authDomain = import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN;
+const projectId = import.meta.env.VITE_APP_FIREBASE_PROJECT_ID;
+const storageBucket = import.meta.env.VITE_APP_FIREBASE_STORAGE_BUCKET;
+const messagingSenderId = import.meta.env.VITE_APP_FIREBASE_MESSAGING_SENDER_ID;
+const appId = import.meta.env.VITE_APP_FIREBASE_APP_ID;
+const measurementId = import.meta.env.VITE_APP_FIREBASE_MEASUREMENT_ID;
+
 const StyleLogin = styled.section`
   background: #00000030;
   backdrop-filter: blur(2px);
@@ -12,6 +25,16 @@ const StyleLogin = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all.2s;
+  .loading-modal {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .form-box {
     display: flex;
     flex-direction: column;
@@ -169,66 +192,118 @@ const validatePassword = (password) => {
   return password.length >= 8;
 };
 
-export default function Login({ loginModalHandler }) {
+export default function LoginModal({ loginModalHandler }) {
   const [login, setLogin] = useState(true);
   const [id, setId] = useState({ text: "", error: "" });
   const [password, setPassword] = useState({ text: "", error: "" });
   const [passCheck, setPassCheck] = useState({ text: "", error: "" });
+  const [name, setName] = useState({ text: "", error: "" });
+  const [loading, setLoading] = useState(false);
   const idInputRef = useRef();
   const passwordInputRef = useRef();
   const passCheckInputRef = useRef();
+  const nameInputRef = useRef();
+
+  const firebaseConfig = { apiKey, authDomain, projectId, storageBucket, messagingSenderId, appId, measurementId };
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth();
+
+  console.log("current User", auth.currentUser);
+
   useEffect(() => {
     idInputRef.current.focus();
-  }, [login]);
-  const inputData = [
-    { label: "Email", value: id, type: "id", name: "id", ref: idInputRef },
-    { label: "Password", value: password, type: "password", name: "password", ref: passwordInputRef },
-  ];
-
-  const handleLoginSignUp = () => {
-    setLogin((pre) => !pre);
     setId(() => ({ text: "", error: "" }));
     setPassword(() => ({ text: "", error: "" }));
     setPassCheck(() => ({ text: "", error: "" }));
+    setName(() => ({ text: "", error: "" }));
+  }, [login]);
+
+  const inputData = login
+    ? [
+        { label: "Email", value: id, type: "id", name: "id", ref: idInputRef },
+        { label: "Password", value: password, type: "password", name: "password", ref: passwordInputRef },
+      ]
+    : [
+        { label: "Email", value: id, type: "id", name: "id", ref: idInputRef },
+        { label: "Name", value: name, type: "text", name: "name", ref: nameInputRef },
+        { label: "Password", value: password, type: "password", name: "password", ref: passwordInputRef },
+        { label: "Password Check", value: passCheck, type: "password", name: "passCheck", ref: passCheckInputRef },
+      ];
+
+  const handleLoginSignUp = () => {
+    setLogin((pre) => !pre);
   };
 
-  const handleSubmit = (e) => {
+  const authenticationErrorHandler = (errorCode) => {
+    switch (errorCode) {
+      case "auth/user-not-found":
+      case "auth/wrong-password": {
+        setPassword({ text: "", error: "아이디 혹은 비밀번호를 확인해주세요" });
+        return;
+      }
+      case "auth/email-already-in-use": {
+        setId({ text: "", error: "이미 존재하는 아이디 입니다" });
+        idInputRef.current.focus();
+        return;
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      handleLoginSignUp();
+      setLoading(true);
+      try {
+        if (!login) {
+          const userCredential = await createUserWithEmailAndPassword(auth, id.text, password.text);
+          await updateProfile(auth.currentUser, { displayName: name.text });
+          loginModalHandler(false);
+          setLoading(false);
+        } else {
+          const userCredential = await signInWithEmailAndPassword(auth, id.text, password.text);
+          const user = userCredential.user;
+          loginModalHandler(false);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+        authenticationErrorHandler(error.code);
+      }
     }
+  };
+  const resetForm = () => {
+    setId((prevId) => ({ ...prevId, error: "" }));
+    setPassword((prevPassword) => ({ ...prevPassword, error: "" }));
+    setPassCheck((prevPassCheck) => ({ ...prevPassCheck, error: "" }));
+    setName((prevPassCheck) => ({ ...prevPassCheck, error: "" }));
   };
 
   const validateForm = () => {
     let isValid = true;
-
+    resetForm();
     if (!validateEmail(id.text)) {
       setId((prevId) => ({ ...prevId, error: "아이디는 이메일 형식이어야 합니다" }));
-      setPassword((prevPassword) => ({ ...prevPassword, error: "" }));
-      setPassCheck((prevPassCheck) => ({ ...prevPassCheck, error: "" }));
       idInputRef.current.focus();
       isValid = false;
     } else if (!validatePassword(password.text)) {
+      setPassword((prevId) => ({ ...prevId, error: "비밀번호는 8자 이상이어야 합니다" }));
       passwordInputRef.current.focus();
-      setId((prevId) => ({ ...prevId, error: "" }));
-      setPassword((prevPassword) => ({ ...prevPassword, error: "비밀번호는 8자 이상이어야 합니다" }));
-      setPassCheck((prevPassCheck) => ({ ...prevPassCheck, error: "" }));
       isValid = false;
     } else if (!login && password.text !== passCheck.text) {
       passCheckInputRef.current.focus();
-      setId((prevId) => ({ ...prevId, error: "" }));
-      setPassword((prevPassword) => ({ ...prevPassword, error: "" }));
       setPassCheck(() => ({ text: "", error: "비밀번호가 일치하지 않습니다" }));
       isValid = false;
-    } else {
-      setId((prevId) => ({ ...prevId, error: "" }));
-      setPassword((prevPassword) => ({ ...prevPassword, error: "" }));
-      setPassCheck((prevPassCheck) => ({ ...prevPassCheck, error: "" }));
+    } else if (!login && !/^[가-힣]{2,}$/.test(name.text)) {
+      nameInputRef.current.focus();
+      setName(() => ({ text: "", error: "올바른 이름을 입력해주세요" }));
+      isValid = false;
     }
-
     return isValid;
   };
 
+  console.log(id, password, passCheck, name);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
@@ -242,12 +317,28 @@ export default function Login({ loginModalHandler }) {
         setPassCheck((prevPassCheck) => ({ ...prevPassCheck, text: value }));
         break;
       default:
-        break;
+        setName((prevName) => ({ ...prevName, text: value }));
     }
   };
 
   return (
     <StyleLogin onClick={() => loginModalHandler(false)}>
+      {loading && (
+        <div className="loading-modal" onClick={(e) => e.stopPropagation()}>
+          <Oval
+            height={80}
+            width={80}
+            color="white"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            ariaLabel="oval-loading"
+            secondaryColor="#15ff00"
+            strokeWidth={5}
+            strokeWidthSecondary={5}
+          />
+        </div>
+      )}
       <div onClick={(e) => e.stopPropagation()}>
         <article></article>
         <article className="form-box">
@@ -275,21 +366,6 @@ export default function Login({ loginModalHandler }) {
                 <span className="error-message">{el.value.error || ""} </span>
               </div>
             ))}
-            {!login && (
-              <div>
-                <label htmlFor={"password-check"}>Password Check</label>
-                <StyleInput
-                  onChange={handleInputChange}
-                  value={passCheck.text}
-                  type="password"
-                  name="passCheck"
-                  id="password-check"
-                  ref={passCheckInputRef}
-                  error={passCheck.error}
-                />
-                <span className="error-message">{passCheck.error || ""} </span>
-              </div>
-            )}
             <button type="submit">{login ? "Log In" : "Sign Up"}</button>
           </StyleForm>
           <StyleGoogleForm>
