@@ -3,32 +3,31 @@ import { Link } from "react-router-dom";
 import { FiUser, FiShoppingCart } from "react-icons/fi";
 
 const StyleUserActions = styled.div`
-  position: absolute;
-  top: ${(props) => (props.simple ? "13px" : "35px")};
-  right: 0;
+  right: 10px;
   display: flex;
   gap: 12px;
+  margin-top: 7px;
   a {
     color: var(--primary);
     font-weight: 500;
-    font-size: 27px;
+    font-size: 25px;
     transition: all.2s;
     display: flex;
     align-items: center;
     gap: 2px;
     &:hover {
-      color: var(--gray-900);
+      color: var(--positive);
     }
   }
 `;
 
-export default function UserActions({ simple }) {
+export default function UserActions({ loginModalHandler }) {
   return (
-    <StyleUserActions simple={simple ? 1 : 0}>
+    <StyleUserActions>
       <Link to="/cart">
         <FiShoppingCart />
       </Link>
-      <Link to="/login">
+      <Link onClick={() => loginModalHandler(true)}>
         <FiUser />
       </Link>
     </StyleUserActions>
