@@ -7,6 +7,8 @@ import ProductDetail from "./pages/ProductDetail.jsx";
 import Home from "./pages/Home.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext.jsx";
+import NewProducts from "./pages/NewProducts.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,8 +19,13 @@ const router = createBrowserRouter([
       { index: true, path: "/", element: <Home /> },
       { path: "/products/:keyword", element: <Products /> },
       { path: "/detail/:id", element: <ProductDetail /> },
+      { path: "/products/new", element: <NewProducts /> },
     ],
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById("root")).render(<RouterProvider router={router} />);
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <AuthContextProvider>
+    <RouterProvider router={router} />
+  </AuthContextProvider>
+);

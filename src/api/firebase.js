@@ -8,7 +8,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-
+import { getDatabase, ref, child, get } from "firebase/database";
 import { GoogleAuthProvider } from "firebase/auth";
 const apiKey = import.meta.env.VITE_APP_FIREBASE_API_KEY;
 const authDomain = import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN;
@@ -27,6 +27,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const database = getDatabase(app);
 
 export const googleLogin = () => {
   return signInWithPopup(auth, provider)
@@ -91,3 +92,16 @@ export const onUserStateChange = (callback) => {
     callback(user);
   });
 };
+
+export async function adminUser(user) {
+  return get(ref(database, "admins")) //
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const admins = snapshot.val();
+        console.log(user);
+        const isAdmin = admins.includes(user.uid);
+        return { ...user, isAdmin };
+      }
+      return user;
+    });
+}

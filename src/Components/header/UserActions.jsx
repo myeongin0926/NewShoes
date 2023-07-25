@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { FiUser, FiLogOut } from "react-icons/fi";
 import { logout } from "../../api/firebase";
+import { useAuthContext } from "../../context/AuthContext";
 const StyleUserActions = styled.div`
   right: 0px;
   display: flex;
@@ -25,7 +26,8 @@ const StyleUserActions = styled.div`
   }
 `;
 
-export default function UserActions({ loginModalHandler, user, handleLogout }) {
+export default function UserActions({ loginModalHandler, handleLogout }) {
+  const { user } = useAuthContext();
   return (
     <StyleUserActions>
       {user ? (

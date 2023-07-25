@@ -23,14 +23,14 @@ const StyleHeader = styled.header`
   }
 `;
 
-export default function Header({ loginModalHandler, user, handleLogout }) {
+export default function Header({ loginModalHandler, handleLogout }) {
   return (
     <StyleHeader>
       <Link to="/">
         <h1>NShop</h1>
       </Link>
       <Navbar />
-      <UserActions user={user} handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
+      <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
     </StyleHeader>
   );
 }

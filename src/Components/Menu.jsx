@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { HiOutlineChevronDoubleRight } from "react-icons/hi2";
 import { FiShoppingBag } from "react-icons/fi";
+import { Link } from "react-router-dom";
 const StyleSideMenu = styled.section`
   padding-top: 13px;
   width: 450px;
@@ -49,7 +50,7 @@ const StyleSideMenu = styled.section`
     letter-spacing: 1px;
     background-color: #ffffff;
     .user-card {
-      padding-left: 22px;
+      margin-left: 30px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -62,6 +63,16 @@ const StyleSideMenu = styled.section`
         font-weight: bold;
         display: block;
       }
+      a {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background-color: var(--gray-700);
+        border-radius: 30px;
+        color: var(--white);
+        padding: 3px 7px;
+        font-weight: bold;
+      }
     }
     .login-card {
       font-size: 20px;
@@ -73,8 +84,7 @@ const StyleSideMenu = styled.section`
   }
 `;
 
-export default function SideMenu({ sideBar, sideBarHandler, user, loginModalHandler }) {
-  console.log(user);
+export default function SideMenu({ sideBar, sideBarHandler, user }) {
   return (
     <StyleSideMenu onClick={(e) => e.stopPropagation()} className={sideBar ? "open" : ""}>
       <div className="exit-btn" onClick={() => sideBarHandler(!sideBar)}>
@@ -83,6 +93,7 @@ export default function SideMenu({ sideBar, sideBarHandler, user, loginModalHand
       <div className="user-description">
         {user ? (
           <div className="user-card">
+            {user.isAdmin && <Link to="/products/new">Admin</Link>}
             <img src={user.photoURL || "/images/userProfile.png"} alt="userProfile" />
             <p>
               <span>{user.displayName}</span>
