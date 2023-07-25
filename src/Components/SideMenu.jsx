@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function Cart() {
+export default function SideMenu() {
   return <div></div>;
 }

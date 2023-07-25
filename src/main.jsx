@@ -5,7 +5,6 @@ import NotFound from "./pages/NotFound.jsx";
 import Products from "./pages/Products.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import Home from "./pages/Home.jsx";
-import Cart from "./pages/Cart.jsx";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -18,7 +17,6 @@ const router = createBrowserRouter([
       { index: true, path: "/", element: <Home /> },
       { path: "/products/:keyword", element: <Products /> },
       { path: "/detail/:id", element: <ProductDetail /> },
-      { path: "/cart", element: <Cart /> },
     ],
   },
 ]);

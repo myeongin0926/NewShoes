@@ -2,7 +2,7 @@ import Button from "../Button";
 import { styled } from "styled-components";
 const StyleNavbar = styled.nav`
   display: flex;
-  gap: 40px;
+  gap: 50px;
   justify-content: center;
   flex: 1;
   margin-top: 7px;
@@ -18,7 +18,7 @@ export default function Navbar() {
   return (
     <StyleNavbar>
       {navButtonData.map((item) => (
-        <Button font="20" key={item.id} value={item.text} param={item.param} />
+        <Button font="21" key={item.id} value={item.text} param={item.param} />
       ))}{" "}
     </StyleNavbar>
   );
