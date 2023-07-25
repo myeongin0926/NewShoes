@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { FiUser, FiLogOut, FiMenu } from "react-icons/fi";
+import { FiUser, FiLogOut } from "react-icons/fi";
 import { logout } from "../../api/firebase";
 const StyleUserActions = styled.div`
-  right: 10px;
+  right: 0px;
   display: flex;
   gap: 15px;
   position: absolute;
@@ -39,9 +39,6 @@ export default function UserActions({ loginModalHandler, user, handleLogout }) {
           Login
         </div>
       )}
-      <div className="user-action">
-        <FiMenu size={23} /> Menu
-      </div>
     </StyleUserActions>
   );
 }

@@ -7,15 +7,17 @@ const StyleHeader = styled.header`
   display: flex;
   width: var(--inner);
   left: 0;
-  right: 0;
   margin: 0 auto;
   position: fixed;
+  right: 0;
+  transition: all.2s;
   align-items: center;
   flex-direction: column;
   padding-top: 20px;
   background-color: #ffffff;
   z-index: 10;
   justify-content: center;
+
   h1 {
     font-size: 50px;
   }
