@@ -1,54 +1,56 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
 import LoginModal from "./Components/login/LoginModal";
-import { useEffect, useState } from "react";
-import { onUserStateChange } from "./api/firebase";
+import { useState } from "react";
+import { useAuthContext } from "./context/AuthContext";
+import SideMenu from "./Components/Menu";
+import { adminUser } from "./api/firebase";
 const StyleApp = styled.main`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   & > main {
     margin: 0 auto;
     width: var(--inner);
     flex: 1;
-    padding-top: 60px;
     position: relative;
+    background-color: black;
   }
 `;
 
 function App() {
-  const [user, setUser] = useState();
+  const { user, setUser } = useAuthContext();
   const [loginModal, setLoginModal] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
+  const navigation = useNavigate();
   const loginModalHandler = (boo) => {
     setLoginModal(boo);
   };
-  useEffect(() => {
-    const localUser = JSON.parse(localStorage.getItem("user"));
-    if (localUser) setUser(localUser);
-    else {
-      onUserStateChange(setUser);
-    }
-  }, []);
+  const sideBarHandler = (boo) => {
+    setSideBar(boo);
+  };
 
   const handleLogin = (user) => {
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
+    adminUser(user).then((result) => {
+      localStorage.setItem("user", JSON.stringify(result));
+      setUser(result);
+    });
   };
+
   const handleLogout = () => {
     localStorage.removeItem("user");
     setUser(null);
+    navigation("/");
   };
 
   return (
     <>
       <StyleApp>
-        <Header loginModalHandler={loginModalHandler} user={user} handleLogout={handleLogout} />
+        <Header loginModalHandler={loginModalHandler} handleLogout={handleLogout} />
         <main>
           <Outlet />
         </main>
       </StyleApp>
       {loginModal && <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />}
+      <SideMenu sideBar={sideBar} sideBarHandler={sideBarHandler} user={user} />
     </>
   );
 }

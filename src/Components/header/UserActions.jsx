@@ -1,40 +1,45 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { FiUser, FiShoppingCart, FiLogOut } from "react-icons/fi";
+import { FiUser, FiLogOut } from "react-icons/fi";
 import { logout } from "../../api/firebase";
+import { useAuthContext } from "../../context/AuthContext";
 const StyleUserActions = styled.div`
-  right: 10px;
+  right: 0px;
   display: flex;
-  gap: 12px;
-  margin-top: 7px;
-  a {
-    color: var(--primary);
-    font-weight: 500;
-    font-size: 25px;
+  gap: 15px;
+  position: absolute;
+  top: 47px;
+
+  .user-action {
+    cursor: pointer;
+    color: var(--gray-700);
+    font-size: 16px;
+    font-weight: 600;
+
     transition: all.2s;
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 5px;
     &:hover {
-      color: var(--positive);
+      color: var(--black);
     }
   }
 `;
 
-export default function UserActions({ loginModalHandler, user, handleLogout }) {
+export default function UserActions({ loginModalHandler, handleLogout }) {
+  const { user } = useAuthContext();
   return (
     <StyleUserActions>
-      <Link to="/cart">
-        <FiShoppingCart />
-      </Link>
       {user ? (
-        <Link onClick={() => logout().then(handleLogout)}>
-          <FiLogOut />
+        <Link className="user-action" onClick={() => logout().then(handleLogout)}>
+          <FiLogOut size={20} />
+          Logout
         </Link>
       ) : (
-        <Link onClick={() => loginModalHandler(true)}>
-          <FiUser />
-        </Link>
+        <div className="user-action" onClick={() => loginModalHandler(true)}>
+          <FiUser size={20} />
+          Login
+        </div>
       )}
     </StyleUserActions>
   );

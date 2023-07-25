@@ -7,6 +7,7 @@
   -webkit-text-size-adjust: 100%;
 }
 html {
+  height: 10000px;
   min-height: 100vh;
   font-family: "Roboto Condensed", sans-serif;
   line-height: 1.5;
@@ -23,6 +24,7 @@ html {
   --inner: 80%;
   --secondary: #3029ff;
   --secondary-light: #0084ff;
+  --modal-back: #00000030;
 }
 
 * {

@@ -3,10 +3,9 @@ import { styled } from "styled-components";
 import { Oval } from "react-loader-spinner";
 import { googleLogin, emailLogin } from "../../api/firebase";
 const StyleLogin = styled.section`
-  background: #00000030;
-  backdrop-filter: blur(2px);
+  background: var(--modal-back);
   z-index: 15;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   top: 0;
@@ -221,7 +220,6 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
     if (validateForm()) {
       emailLogin(setIsLoading, loginModalHandler, loginSwitch, form, idInputRef, passwordInputRef, setForm).then(
         (res) => {
-          console.log(res);
           if (res) handleLogin(res);
         }
       );
