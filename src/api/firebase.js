@@ -31,7 +31,6 @@ const provider = new GoogleAuthProvider();
 export const googleLogin = () => {
   return signInWithPopup(auth, provider)
     .then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
       return result.user;
     })
     .catch((error) => {
@@ -53,7 +52,6 @@ export const emailLogin = async (setLoading, loginModalHandler, login, form, idI
       const userCredential = await signInWithEmailAndPassword(auth, id.text, password.text);
       loginModalHandler(false);
       setLoading(false);
-      console.log(userCredential.user);
       return userCredential.user;
     }
   } catch (error) {

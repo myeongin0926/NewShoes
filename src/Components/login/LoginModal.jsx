@@ -220,7 +220,10 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
     e.preventDefault();
     if (validateForm()) {
       emailLogin(setIsLoading, loginModalHandler, loginSwitch, form, idInputRef, passwordInputRef, setForm).then(
-        (res) => handleLogin(res)
+        (res) => {
+          console.log(res);
+          if (res) handleLogin(res);
+        }
       );
     }
   };
@@ -241,8 +244,18 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
     }));
   };
 
+  const resetErrorForm = () => {
+    setForm((pre) => ({
+      id: { ...pre.id, error: "" },
+      password: { ...pre.password, error: "" },
+      passCheck: { ...pre.passCheck, error: "" },
+      name: { ...pre.name, error: "" },
+    }));
+  };
+
   const validateForm = () => {
     let isValid = true;
+    resetErrorForm();
     if (!validateEmail(form.id.text)) {
       setForm((prevForm) => ({
         ...prevForm,
@@ -250,24 +263,21 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
       }));
       idInputRef.current.focus();
       isValid = false;
-    }
-    if (!validatePassword(form.password.text)) {
+    } else if (!validatePassword(form.password.text)) {
       setForm((prevForm) => ({
         ...prevForm,
         password: { text: "", error: "비밀번호는 8자 이상이어야 합니다" },
       }));
       passwordInputRef.current.focus();
       isValid = false;
-    }
-    if (!loginSwitch && form.password.text !== form.passCheck.text) {
+    } else if (!loginSwitch && form.password.text !== form.passCheck.text) {
       setForm((prevForm) => ({
         ...prevForm,
         passCheck: { text: "", error: "비밀번호가 일치하지 않습니다" },
       }));
       passCheckInputRef.current.focus();
       isValid = false;
-    }
-    if (!loginSwitch && !/^[가-힣]{2,}$/.test(form.name.text)) {
+    } else if (!loginSwitch && !/^[가-힣]{2,}$/.test(form.name.text)) {
       setForm((prevForm) => ({
         ...prevForm,
         name: { text: "", error: "올바른 이름을 입력해주세요" },

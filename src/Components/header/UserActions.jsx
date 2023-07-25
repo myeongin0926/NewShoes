@@ -28,7 +28,7 @@ export default function UserActions({ loginModalHandler, user, handleLogout }) {
         <FiShoppingCart />
       </Link>
       {user ? (
-        <Link onClick={() => logout().then(() => handleLogout)}>
+        <Link onClick={() => logout().then(handleLogout)}>
           <FiLogOut />
         </Link>
       ) : (

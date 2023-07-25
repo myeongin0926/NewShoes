@@ -24,16 +24,19 @@ function App() {
     setLoginModal(boo);
   };
   useEffect(() => {
-    onUserStateChange((user) => {
-      console.log(user);
-      setUser(user);
-    });
+    const localUser = JSON.parse(localStorage.getItem("user"));
+    if (localUser) setUser(localUser);
+    else {
+      onUserStateChange(setUser);
+    }
   }, []);
 
   const handleLogin = (user) => {
+    localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   };
   const handleLogout = () => {
+    localStorage.removeItem("user");
     setUser(null);
   };
 
