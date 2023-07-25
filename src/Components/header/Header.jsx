@@ -17,14 +17,14 @@ const StyleHeader = styled.header`
   justify-content: center;
 `;
 
-export default function Header({ loginModalHandler }) {
+export default function Header({ loginModalHandler, user, handleLogout }) {
   return (
     <StyleHeader>
       <Link to="/">
         <h1>NShop</h1>
       </Link>
       <Navbar />
-      <UserActions loginModalHandler={loginModalHandler} />
+      <UserActions user={user} handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
     </StyleHeader>
   );
 }
