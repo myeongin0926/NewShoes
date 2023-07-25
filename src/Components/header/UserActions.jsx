@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { FiUser, FiShoppingCart } from "react-icons/fi";
-
+import { FiUser, FiShoppingCart, FiLogOut } from "react-icons/fi";
+import { logout } from "../../api/firebase";
 const StyleUserActions = styled.div`
   right: 10px;
   display: flex;
@@ -21,15 +21,21 @@ const StyleUserActions = styled.div`
   }
 `;
 
-export default function UserActions({ loginModalHandler }) {
+export default function UserActions({ loginModalHandler, user, handleLogout }) {
   return (
     <StyleUserActions>
       <Link to="/cart">
         <FiShoppingCart />
       </Link>
-      <Link onClick={() => loginModalHandler(true)}>
-        <FiUser />
-      </Link>
+      {user ? (
+        <Link onClick={() => logout().then(() => handleLogout)}>
+          <FiLogOut />
+        </Link>
+      ) : (
+        <Link onClick={() => loginModalHandler(true)}>
+          <FiUser />
+        </Link>
+      )}
     </StyleUserActions>
   );
 }

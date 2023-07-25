@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
-import LoginModal from "./pages/LoginModal";
-import { useState } from "react";
+import LoginModal from "./Components/login/LoginModal";
+import { useEffect, useState } from "react";
+import { onUserStateChange } from "./api/firebase";
 const StyleApp = styled.main`
   min-height: 100vh;
   display: flex;
@@ -17,21 +18,34 @@ const StyleApp = styled.main`
 `;
 
 function App() {
+  const [user, setUser] = useState();
   const [loginModal, setLoginModal] = useState(false);
   const loginModalHandler = (boo) => {
     setLoginModal(boo);
   };
-  console.log(loginModal);
+  useEffect(() => {
+    onUserStateChange((user) => {
+      console.log(user);
+      setUser(user);
+    });
+  }, []);
+
+  const handleLogin = (user) => {
+    setUser(user);
+  };
+  const handleLogout = () => {
+    setUser(null);
+  };
 
   return (
     <>
       <StyleApp>
-        <Header loginModalHandler={loginModalHandler} />
+        <Header loginModalHandler={loginModalHandler} user={user} handleLogout={handleLogout} />
         <main>
           <Outlet />
         </main>
       </StyleApp>
-      {loginModal && <LoginModal loginModalHandler={loginModalHandler} />}
+      {loginModal && <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />}
     </>
   );
 }
