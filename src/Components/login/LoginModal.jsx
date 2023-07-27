@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
-import { Oval } from "react-loader-spinner";
+import LoadingModal from "../LoadingModal";
 import { googleLogin, emailLogin } from "../../api/firebase";
 const StyleLogin = styled.section`
   background: var(--modal-back);
@@ -14,15 +14,7 @@ const StyleLogin = styled.section`
   align-items: center;
   justify-content: center;
   transition: all.2s;
-  .loading-modal {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    z-index: 20;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  
   .form-box {
     display: flex;
     flex-direction: column;
@@ -296,22 +288,7 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
 
   return (
     <StyleLogin onClick={() => loginModalHandler(false)}>
-      {isLoading && (
-        <div className="loading-modal" onClick={(e) => e.stopPropagation()}>
-          <Oval
-            height={80}
-            width={80}
-            color="white"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            ariaLabel="oval-loading"
-            secondaryColor="#15ff00"
-            strokeWidth={5}
-            strokeWidthSecondary={5}
-          />
-        </div>
-      )}
+      {isLoading && <LoadingModal />}
       <div onClick={(e) => e.stopPropagation()}>
         <article></article>
         <article className="form-box">

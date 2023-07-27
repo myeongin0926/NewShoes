@@ -8,7 +8,8 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, child, get } from "firebase/database";
+import { v4 as uuid } from "uuid";
+import { getDatabase, ref, get, set } from "firebase/database";
 import { GoogleAuthProvider } from "firebase/auth";
 const apiKey = import.meta.env.VITE_APP_FIREBASE_API_KEY;
 const authDomain = import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN;
@@ -103,4 +104,15 @@ export async function adminUser(user) {
       }
       return user;
     });
+}
+
+export async function addNewProduct(product, image) {
+  const id = uuid()
+  set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    image,
+    options : product.options.split(',')
+  })
 }

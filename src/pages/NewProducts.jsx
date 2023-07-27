@@ -3,12 +3,19 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import { uploadImage } from "../api/uploader";
-
+import LoadingModal from "../Components/LoadingModal";
+import { addNewProduct } from "../api/firebase";
 const StyleAdmin = styled.section`
   height: calc(100vh - 150px);
   display: flex;
   width: 100%;
   flex-direction: column;
+  .upload-message{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--gray-700);
+  }
   .image-box {
     display: flex;
     justify-content: center;
@@ -59,6 +66,8 @@ const StyleAdmin = styled.section`
 export default function NewProducts() {
   const { user } = useAuthContext();
   const [product, setProduct] = useState({});
+  const [isLoading, setIsLoading] = useState(false)
+  const [sucess , setSucess] = useState(false)
   const[file,setFile] = useState()
   const navigation = useNavigate();
   useEffect(() => {
@@ -67,70 +76,83 @@ export default function NewProducts() {
     }
   }, [user , navigation]);
 
-  const productSubmitHandler = (e) => {
+  const productSubmitHandler =async (e) => {
     e.preventDefault();
-    uploadImage(file).then(url => {
-      console.log(url)
+    setIsLoading(true);
+    await uploadImage(file).then(url => {
+      addNewProduct(product, url).then(() => {
+        setIsLoading(false);
+        setSucess(true);
+        setTimeout(() => setSucess(false), 3000)
+      })
     })
+
+    
+    setProduct({});
   }
-  console.log(product)
   const onInputChangeHandler = (e) => {
     const { name, value, files } = e.target;
     if (name === 'file') setFile(files && files[0])
     else setProduct(product => ({ ...product, [name]: value }))
- }
+  }
+  
 
+  
   return (
-    <StyleAdmin>
-      {file && (
-        <div className='image-box'>
-          <img src={URL.createObjectURL(file)} alt="prodct img" />
-        </div>
-      )}
-      <form onSubmit={productSubmitHandler}>
-        <input type="file" accept="image/*" name="file" required onChange={onInputChangeHandler} />
-        <input
-          type="text"
-          name="title"
-          value={product.title || ""}
-          placeholder="제품명"
-          required
-          onChange={onInputChangeHandler}
-        />
-        <input
-          type="number"
-          name="price"
-          value={product.price || ""}
-          placeholder="가격"
-          required
-          onChange={onInputChangeHandler}
-        />
-        <input
-          type="text"
-          name="category"
-          value={product.category || ""}
-          placeholder="카테고리"
-          required
-          onChange={onInputChangeHandler}
-        />
-        <input
-          type="text"
-          name="description"
-          value={product.description || ""}
-          placeholder="상세정보"
-          required
-          onChange={onInputChangeHandler}
-        />
-        <input
-          type="text"
-          name="options"
-          value={product.options || ""}
-          placeholder="옵션 - 콤마(,)로 구분"
-          required
-          onChange={onInputChangeHandler}
-        />
-        <button type="submit">제품 등록하기</button>
-      </form>
-    </StyleAdmin>
+    <>
+      {isLoading && <LoadingModal />}
+      <StyleAdmin>
+        {file && (
+          <div className="image-box">
+            <img src={URL.createObjectURL(file)} alt="prodct img" />
+          </div>
+        )}
+        <form onSubmit={productSubmitHandler}>
+          {sucess && <div className='sucess-message'>업로드가 성공적으로 이루어졌습니다</div>}
+          <input type="file" accept="image/*" name="file" required onChange={onInputChangeHandler} />
+          <input
+            type="text"
+            name="title"
+            value={product.title || ""}
+            placeholder="제품명"
+            required
+            onChange={onInputChangeHandler}
+          />
+          <input
+            type="number"
+            name="price"
+            value={product.price || ""}
+            placeholder="가격"
+            required
+            onChange={onInputChangeHandler}
+          />
+          <input
+            type="text"
+            name="category"
+            value={product.category || ""}
+            placeholder="카테고리"
+            required
+            onChange={onInputChangeHandler}
+          />
+          <input
+            type="text"
+            name="description"
+            value={product.description || ""}
+            placeholder="상세정보"
+            required
+            onChange={onInputChangeHandler}
+          />
+          <input
+            type="text"
+            name="options"
+            value={product.options || ""}
+            placeholder="옵션 - 콤마(,)로 구분"
+            required
+            onChange={onInputChangeHandler}
+          />
+          <button type="submit">제품 등록하기</button>
+        </form>
+      </StyleAdmin>
+    </>
   );
 }

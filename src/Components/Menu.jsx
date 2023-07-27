@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 import { HiOutlineChevronDoubleRight } from "react-icons/hi2";
 import { FiShoppingBag } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
 const StyleSideMenu = styled.section`
   padding-top: 13px;
   width: 450px;
@@ -82,6 +83,10 @@ const StyleSideMenu = styled.section`
 `;
 
 export default function SideMenu({ sideBar, sideBarHandler, user }) {
+  const params = useParams()
+  useEffect(() => {
+    sideBarHandler(false)
+  } , [params])
   return (
     <StyleSideMenu onClick={(e) => e.stopPropagation()} className={sideBar ? "open" : ""}>
       <div className="exit-btn" onClick={() => sideBarHandler(!sideBar)}>
