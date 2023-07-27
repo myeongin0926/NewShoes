@@ -10,9 +10,9 @@ const StyleApp = styled.main`
   & > main {
     margin: 0 auto;
     width: var(--inner);
-    flex: 1;
+    padding-top: 150px;
+    height: 100vh;
     position: relative;
-    background-color: black;
   }
 `;
 

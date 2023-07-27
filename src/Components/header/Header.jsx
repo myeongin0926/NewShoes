@@ -4,21 +4,16 @@ import { styled } from "styled-components";
 import UserActions from "./UserActions";
 
 const StyleHeader = styled.header`
-  display: flex;
-  width: var(--inner);
-  left: 0;
-  margin: 0 auto;
+  width: 100%;
   position: fixed;
-  right: 0;
   transition: all.2s;
   align-items: center;
-  flex-direction: column;
   padding-top: 20px;
   background-color: #ffffff;
   z-index: 10;
-  justify-content: center;
-
-  h1 {
+  box-shadow: 0 2px 10px 1px var(--gray-100);
+   h1 {
+       text-align: center;
     font-size: 50px;
   }
 `;

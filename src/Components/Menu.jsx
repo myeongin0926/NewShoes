@@ -6,17 +6,18 @@ const StyleSideMenu = styled.section`
   padding-top: 13px;
   width: 450px;
   height: 95vh;
-  border-radius: 40px;
+  border-radius: 40px 0 0 40px;
   top: 0;
   bottom: 0;
   margin: auto;
   z-index: 11;
   transition: 0.5s;
-  right: -450px;
+  right: -460px;
   position: fixed;
   display: flex;
+  background-color: #ffffff;
   flex-direction: column;
-  background-color: var(--positive);
+  box-shadow: 0 0 3px 4px var(--gray-300);
   .exit-btn {
     position: absolute;
     top: 0;
@@ -31,7 +32,7 @@ const StyleSideMenu = styled.section`
     color: white;
     align-items: center;
     border-radius: 30px;
-    background-color: var(--positive);
+    background-color: var(--primary);
     transition: 0.3s;
     &:hover {
       border-radius: 10px;
@@ -41,14 +42,10 @@ const StyleSideMenu = styled.section`
     right: 0;
   }
   .user-description {
-    border-radius: 33px 33px 5px 5px;
-    width: 95%;
+    width: 100%;
     height: 100px;
-    margin: 0 auto;
     display: flex;
-    align-items: center;
     letter-spacing: 1px;
-    background-color: #ffffff;
     .user-card {
       margin-left: 30px;
       display: flex;
