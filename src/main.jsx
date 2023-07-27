@@ -5,7 +5,6 @@ import NotFound from "./pages/NotFound.jsx";
 import Products from "./pages/Products.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import Home from "./pages/Home.jsx";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import NewProducts from "./pages/NewProducts.jsx";

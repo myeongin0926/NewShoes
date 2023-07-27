@@ -4,12 +4,15 @@ import { FiUser, FiLogOut } from "react-icons/fi";
 import { logout } from "../../api/firebase";
 import { useAuthContext } from "../../context/AuthContext";
 const StyleUserActions = styled.div`
-  right: 0px;
+  width: var(--inner);
   display: flex;
+  justify-content: end;
   gap: 15px;
   position: absolute;
   top: 47px;
-
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   .user-action {
     cursor: pointer;
     color: var(--gray-700);
