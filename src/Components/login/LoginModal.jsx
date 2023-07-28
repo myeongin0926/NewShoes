@@ -19,7 +19,7 @@ const StyleLogin = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 320px;
+    width: 390px;
     padding: 50px;
     border-radius: 0 3px 40px 0;
     background-color: white;
@@ -50,6 +50,10 @@ const StyleLogin = styled.section`
       span {
         color: var(--positive);
         cursor: pointer;
+        transition: all.2s;
+        &:hover{
+          color: var(--primary);
+        }
       }
     }
   }

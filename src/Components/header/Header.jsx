@@ -13,6 +13,7 @@ const StyleHeader = styled.header`
   z-index: 10;
   box-shadow: 0 2px 10px 1px var(--gray-100);
    h1 {
+    padding-left: 25px;
        text-align: center;
     font-size: 50px;
   }

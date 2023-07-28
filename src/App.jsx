@@ -5,7 +5,7 @@ import LoginModal from "./Components/login/LoginModal";
 import { useState } from "react";
 import { useAuthContext } from "./context/AuthContext";
 import SideMenu from "./Components/Menu";
-import { adminUser } from "./api/firebase";
+import { adminUser, productList } from "./api/firebase";
 const StyleApp = styled.main`
   & > main {
     margin: 0 auto;
@@ -21,15 +21,17 @@ function App() {
   const [loginModal, setLoginModal] = useState(false);
   const [sideBar, setSideBar] = useState(false);
   const navigation = useNavigate();
+
+  console.log(productList().then(res => console.log(res)));
   const loginModalHandler = (boo) => {
     setLoginModal(boo);
   };
   const sideBarHandler = (boo) => {
     setSideBar(boo);
   };
-
   const handleLogin = (user) => {
     adminUser(user).then((result) => {
+      console.log(result)
       localStorage.setItem("user", JSON.stringify(result));
       setUser(result);
     });

@@ -108,7 +108,7 @@ export default function NewProducts() {
           </div>
         )}
         <form onSubmit={productSubmitHandler}>
-          {sucess && <div className='sucess-message'>업로드가 성공적으로 이루어졌습니다</div>}
+          {sucess && <div className="sucess-message">업로드가 성공적으로 이루어졌습니다</div>}
           <input type="file" accept="image/*" name="file" required onChange={onInputChangeHandler} />
           <input
             type="text"

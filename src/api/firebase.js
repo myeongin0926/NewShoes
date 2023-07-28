@@ -97,6 +97,7 @@ export const onUserStateChange = (callback) => {
 export async function adminUser(user) {
   return get(ref(database, "admins")) //
     .then((snapshot) => {
+      console.log(snapshot)
       if (snapshot.exists()) {
         const admins = snapshot.val();
         const isAdmin = admins.includes(user.uid);
@@ -115,4 +116,15 @@ export async function addNewProduct(product, image) {
     image,
     options : product.options.split(',')
   })
+}
+
+export async function productList(user) {
+  return get(ref(database, "products")) //
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const products = snapshot.val();
+        return products
+      }
+      return user;
+    });
 }

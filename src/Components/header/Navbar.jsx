@@ -13,7 +13,6 @@ export default function Navbar() {
     { text: "Shoes", id: 1, param: "shoes" },
     { text: "Outer", id: 2, param: "outer" },
     { text: "Bag", id: 3, param: "bag" },
-    { text: "Pants", id: 4, param: "pants" },
   ];
   return (
     <StyleNavbar>
