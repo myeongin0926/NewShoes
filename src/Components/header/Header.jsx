@@ -19,6 +19,7 @@ const StyleHeader = styled.header`
   }
   h1 {
     margin: 0 auto;
+    margin-left: -7px;
     width: var(--inner);
     font-size: 30px;
     position: relative;

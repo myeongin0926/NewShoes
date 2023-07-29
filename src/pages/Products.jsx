@@ -16,15 +16,12 @@ const StyleProducts = styled.section`
 export default function Products() {
   const { isLoading, error, data: products } = useQuery(["products"], getProducts);
 
-
   if (error) {
     return <div>{error}</div>
   }
   if (isLoading) {
     return <LoadingModal />;
   }
-
-
 
   return (
     <StyleProducts>

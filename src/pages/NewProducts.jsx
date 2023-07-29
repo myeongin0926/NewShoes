@@ -64,18 +64,12 @@ const StyleAdmin = styled.section`
 `;
 
 export default function NewProducts() {
-  const { user } = useAuthContext();
-  const [product, setProduct] = useState({});
-  const [isLoading, setIsLoading] = useState(false)
-  const [sucess , setSucess] = useState(false)
-  const[file,setFile] = useState()
-  const[subFile,setSubFile] = useState()
-  const navigation = useNavigate();
-  useEffect(() => {
-    if (user?.isAdmin === false || user === null) {
-      navigation("/");
-    }
-  }, [user , navigation]);
+  const [ product, setProduct ] = useState({});
+  const [ isLoading, setIsLoading ] = useState(false)
+  const [ sucess , setSucess] = useState(false)
+  const[ file,setFile ] = useState()
+  const[ subFile,setSubFile ] = useState()
+
 
 
 const productSubmitHandler = async (e) => {
