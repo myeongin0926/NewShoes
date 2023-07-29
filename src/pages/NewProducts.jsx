@@ -69,6 +69,7 @@ export default function NewProducts() {
   const [isLoading, setIsLoading] = useState(false)
   const [sucess , setSucess] = useState(false)
   const[file,setFile] = useState()
+  const[subFile,setSubFile] = useState()
   const navigation = useNavigate();
   useEffect(() => {
     if (user?.isAdmin === false || user === null) {
@@ -76,40 +77,48 @@ export default function NewProducts() {
     }
   }, [user , navigation]);
 
-  const productSubmitHandler =async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    await uploadImage(file).then(url => {
-      addNewProduct(product, url).then(() => {
-        setIsLoading(false);
-        setSucess(true);
-        setTimeout(() => setSucess(false), 3000)
-      })
-    })
 
-    
+const productSubmitHandler = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  const files = [];
+  try {
+     files.push(await uploadImage(file));
+     files.push(await uploadImage(subFile));
+    console.log(files)
+    await addNewProduct(product, files)
+    setIsLoading(false);
+    setSucess(true);
+    setTimeout(() => setSucess(false), 3000);
     setProduct({});
+  } catch (error) {
+    console.error(error);
+    setIsLoading(false);
   }
-  const onInputChangeHandler = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'file') setFile(files && files[0])
-    else setProduct(product => ({ ...product, [name]: value }))
-  }
-  
+};
 
-  
+
+const onInputChangeHandler = (e) => {
+  const { name, value, files } = e.target;
+  if (name === "file") setFile(files && files[files.length - 1]);
+  else if (name === "sub file") setSubFile(files && files[files.length - 1]);
+  else setProduct((product) => ({ ...product, [name]: value }));
+};
+
   return (
     <>
       {isLoading && <LoadingModal />}
       <StyleAdmin>
-        {file && (
+  
           <div className="image-box">
-            <img src={URL.createObjectURL(file)} alt="prodct img" />
+          {file && <img src={URL.createObjectURL(file)} alt="prodct img" />}
+          { subFile && <img src={URL.createObjectURL(subFile)} alt="prodct sub img" />}
           </div>
-        )}
+  
         <form onSubmit={productSubmitHandler}>
-          {sucess && <div className='sucess-message'>업로드가 성공적으로 이루어졌습니다</div>}
+          {sucess && <div className="sucess-message">업로드가 성공적으로 이루어졌습니다</div>}
           <input type="file" accept="image/*" name="file" required onChange={onInputChangeHandler} />
+          <input type="file" accept="image/*" name="sub file" required onChange={onInputChangeHandler} />
           <input
             type="text"
             name="title"

@@ -3,11 +3,11 @@ import { HiOutlineChevronDoubleRight } from "react-icons/hi2";
 import { FiShoppingBag } from "react-icons/fi";
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
-const StyleSideMenu = styled.section`
-  padding-top: 13px;
+const StyleSideMenu = styled.aside`
   width: 450px;
   height: 95vh;
-  border-radius: 40px 0 0 40px;
+  padding: 20px 20px;
+  border-radius: 10px 0 0 10px;
   top: 0;
   bottom: 0;
   margin: auto;
@@ -16,8 +16,8 @@ const StyleSideMenu = styled.section`
   right: -460px;
   position: fixed;
   display: flex;
-  background-color: #ffffff;
   flex-direction: column;
+  background-color: #ffffff;
   box-shadow: 0 0 3px 4px var(--gray-300);
   .exit-btn {
     position: absolute;
@@ -42,42 +42,62 @@ const StyleSideMenu = styled.section`
   &.open {
     right: 0;
   }
-  .user-description {
-    width: 100%;
-    height: 100px;
+
+  .user-card {
     display: flex;
-    letter-spacing: 1px;
-    .user-card {
-      margin-left: 30px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      img {
-        width: 60px;
-        border-radius: 50%;
-      }
-      span:first-child {
-        font-size: 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    img {
+      width: 50px;
+      border-radius: 50%;
+    }
+    .user-description {
+      div:first-child {
         font-weight: bold;
-        display: block;
       }
-      a {
-        position: absolute;
-        top: 30px;
-        right: 30px;
-        background-color: var(--gray-700);
-        border-radius: 30px;
-        color: var(--white);
-        padding: 3px 7px;
-        font-weight: bold;
+      div {
+        display: flex;
+        justify-content: space-between;
+        a {
+          color: var(--primary);
+          padding: 0 5px;
+          border-radius: 3px;
+          transition: all.2s;
+          &:hover {
+            background-color: var(--primary);
+            color: var(--white);
+          }
+        }
       }
     }
-    .login-card {
-      font-size: 20px;
-      font-weight: bold;
-      color: var(--gray-700);
-      flex: 1;
-      text-align: center;
+  }
+  .cart {
+    flex: 1;
+    margin: 20px 0;
+    overflow: auto;
+    div{
+      height: 100px;
+    }
+  }
+  .total{
+    height: 80px;
+    background-color: black;
+  }
+  .payment {
+    height: 50px;
+    border-radius: 5px;
+    line-height: 50px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    background-color: var(--primary);
+    transition: all.2s;
+    opacity: 0.5;
+    cursor: pointer;
+    font-size: 16px;
+    &:hover {
+      opacity: 1;
     }
   }
 `;
@@ -86,26 +106,62 @@ export default function SideMenu({ sideBar, sideBarHandler, user }) {
   const params = useParams()
   useEffect(() => {
     sideBarHandler(false)
-  } , [params])
+  } , [params ])
   return (
     <StyleSideMenu onClick={(e) => e.stopPropagation()} className={sideBar ? "open" : ""}>
       <div className="exit-btn" onClick={() => sideBarHandler(!sideBar)}>
         {sideBar ? <HiOutlineChevronDoubleRight size={30} /> : <FiShoppingBag size={30} />}
       </div>
-      <div className="user-description">
-        {user ? (
+      {user ? (
+        <>
           <div className="user-card">
-            {user.isAdmin && <Link to="/products/new">Admin</Link>}
             <img src={user.photoURL || "/images/userProfile.png"} alt="userProfile" />
-            <p>
-              <span>{user.displayName}</span>
-              <span>{user.email}</span>
-            </p>
+            <div className="user-description">
+              <div>
+                {user.displayName} {user.isAdmin && <Link to="/products/new">Admin</Link>}
+              </div>
+              <div>{user.email}</div>
+            </div>
           </div>
-        ) : (
-          <div className="login-card">로그인 정보가 없습니다</div>
-        )}
-      </div>
+          <div className="cart">
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+            <div>hello</div>
+          </div>
+          <div className='total'>총합</div>
+          <button className="payment">결제하기</button>
+        </>
+      ) : (
+        <div className="login-card">로그인 정보가 없습니다</div>
+      )}
     </StyleSideMenu>
   );
 }

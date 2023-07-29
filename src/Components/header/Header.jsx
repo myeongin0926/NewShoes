@@ -1,31 +1,45 @@
-import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import UserActions from "./UserActions";
 
 const StyleHeader = styled.header`
   width: 100%;
+  display: flex;
   position: fixed;
   transition: all.2s;
   align-items: center;
-  padding-top: 20px;
-  background-color: #ffffff;
   z-index: 10;
-  box-shadow: 0 2px 10px 1px var(--gray-100);
-   h1 {
-       text-align: center;
-    font-size: 50px;
+  height: 80px;
+  background-color: var(--white);
+  box-shadow: 0 2px 5px 2px var(--gray-100);
+  .inner {
+    display: flex;
+    width: var(--inner);
+    margin: 0 auto;
+  }
+  h1 {
+    margin: 0 auto;
+    width: var(--inner);
+    font-size: 30px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    padding-top: 10px;
+    img{
+      width: 70px;
+    }
   }
 `;
 
 export default function Header({ loginModalHandler, handleLogout }) {
   return (
     <StyleHeader>
-      <Link to="/">
-        <h1>NShop</h1>
-      </Link>
-      <Navbar />
-      <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
+      <div className='inner'>
+        <h1>
+          <Link to="/"><img src="/public/images/NsLogo.png" alt="" /> </Link>
+        </h1>
+        <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
+      </div>
     </StyleHeader>
   );
 }
