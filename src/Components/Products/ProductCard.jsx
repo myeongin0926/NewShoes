@@ -50,24 +50,25 @@ const StyleProductCard = styled.li`
   }
 `;
 export default function ProductCard({ product }) {
+  const{title,subImage,mainImage, id, category} = product
   const [mouseOver, setMouseOver] = useState(false)
   const mouseOverHandler = () => setMouseOver(!mouseOver)
   const navigation = useNavigate();
-  const productDetailHandler = () => navigation(`/detail/${product.id}`)
+  const productDetailHandler = () => navigation(`/detail/${id}` , {state :{ product }})
     return (
       <StyleProductCard onClick={productDetailHandler}>
         <div className="logo-image">
-          <img src={`/public/images/${product.category}logo.png`} alt="" />
+          <img src={`/public/images/${category}logo.png`} alt="" />
         </div>
         <div
           className="product-image"
           onMouseOver={mouseOverHandler}
           onMouseLeave={mouseOverHandler}
         >
-          <img src={mouseOver ? product.subImage : product.mainImage} alt="product image" />
+          <img src={mouseOver ?subImage :mainImage} alt="product image" />
         </div>
         <div className="product-description">
-          <span> {product.title}</span>
+          <span> {title}</span>
           <span>{numToMoneyFormat(product.price)}₩</span>
         </div>
       </StyleProductCard>

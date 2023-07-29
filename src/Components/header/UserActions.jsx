@@ -7,18 +7,11 @@ const StyleUserActions = styled.div`
   width: var(--inner);
   display: flex;
   justify-content: end;
-  gap: 15px;
-  position: absolute;
-  top: 47px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
   .user-action {
     cursor: pointer;
     color: var(--gray-700);
     font-size: 16px;
     font-weight: 600;
-
     transition: all.2s;
     display: flex;
     align-items: center;

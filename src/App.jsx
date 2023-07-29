@@ -12,7 +12,7 @@ const StyleApp = styled.main`
   & > main {
     margin: 0 auto;
     width: var(--inner);
-    padding-top: 150px;
+    padding-top: 80px;
     height: 100vh;
     position: relative;
   }

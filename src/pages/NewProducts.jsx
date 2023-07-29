@@ -76,12 +76,12 @@ export default function NewProducts() {
       navigation("/");
     }
   }, [user , navigation]);
-   console.log({product});
+
 
 const productSubmitHandler = async (e) => {
   e.preventDefault();
   setIsLoading(true);
-  const files = []
+  const files = [];
   try {
      files.push(await uploadImage(file));
      files.push(await uploadImage(subFile));
