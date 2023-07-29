@@ -13,18 +13,24 @@ const StyleHeader = styled.header`
   z-index: 10;
   box-shadow: 0 2px 10px 1px var(--gray-100);
    h1 {
+    width: 209px;
+    margin: 0 auto;
     padding-left: 25px;
-       text-align: center;
+    text-align: center;
     font-size: 50px;
+    position: relative;
+    z-index: 1;
   }
 `;
 
 export default function Header({ loginModalHandler, handleLogout }) {
   return (
     <StyleHeader>
-      <Link to="/">
-        <h1>NShop</h1>
-      </Link>
+      <h1>
+        {" "}
+        <Link to="/">NShop </Link>
+      </h1>
+
       <Navbar />
       <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
     </StyleHeader>

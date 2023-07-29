@@ -10,9 +10,7 @@ const StyleNavbar = styled.nav`
 
 export default function Navbar() {
   const navButtonData = [
-    { text: "Shoes", id: 1, param: "shoes" },
-    { text: "Outer", id: 2, param: "outer" },
-    { text: "Bag", id: 3, param: "bag" },
+
   ];
   return (
     <StyleNavbar>

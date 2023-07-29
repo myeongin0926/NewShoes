@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import { Link, useParams } from "react-router-dom";
-import scrollToTop from "../func/scrollToTop";
 const StyleNavButton = styled.button`
   cursor: pointer;
   transition: 0.15s;
@@ -19,7 +18,7 @@ export default function Button({ value, param, font }) {
 
   return (
     <Link to={`products/${param}`}>
-      <StyleNavButton active={keyword === param ? 1 : 0} font={font} onClick={scrollToTop}>
+      <StyleNavButton active={keyword === param ? 1 : 0} font={font} >
         {value}
       </StyleNavButton>
     </Link>

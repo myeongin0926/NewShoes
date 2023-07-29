@@ -105,8 +105,8 @@ const StyleSideMenu = styled.aside`
 export default function SideMenu({ sideBar, sideBarHandler, user }) {
   const params = useParams()
   useEffect(() => {
-    sideBarHandler(true)
-  } , [params])
+    sideBarHandler(false)
+  } , [params ])
   return (
     <StyleSideMenu onClick={(e) => e.stopPropagation()} className={sideBar ? "open" : ""}>
       <div className="exit-btn" onClick={() => sideBarHandler(!sideBar)}>

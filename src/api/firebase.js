@@ -107,24 +107,24 @@ export async function adminUser(user) {
     });
 }
 
-export async function addNewProduct(product, image) {
+export async function addNewProduct(product, images) {
   const id = uuid()
   set(ref(database, `products/${id}`), {
     ...product,
     id,
     price: parseInt(product.price),
-    image,
+    mainImage : images[0],
+    subImage : images[1],
     options : product.options.split(',')
   })
 }
 
-export async function productList(user) {
+export async function getProducts() {
   return get(ref(database, "products")) //
     .then((snapshot) => {
       if (snapshot.exists()) {
-        const products = snapshot.val();
-        return products
+        return Object.values(snapshot.val());
+
       }
-      return user;
     });
 }

@@ -1,6 +1,5 @@
 const cloudinaryPreset = import.meta.env.VITE_APP_CLOUDINARY_PRESET;
 const cloudinaryURL = import.meta.env.VITE_APP_CLOUDINARY_URL;
-
 export async function uploadImage(file) {
   try {
     const data = new FormData();
@@ -12,10 +11,10 @@ export async function uploadImage(file) {
       body: data,
     });
 
-    const jsonData = await result.json(); 
-    console.log(jsonData.url); 
+    const jsonData = await result.json();
+    console.log(jsonData.url);
 
-    return jsonData.url; 
+    return jsonData.url;
   } catch (e) {
     console.log(e);
   }
