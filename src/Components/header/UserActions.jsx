@@ -1,12 +1,14 @@
 import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import { FiUser, FiLogOut } from "react-icons/fi";
 import { logout } from "../../api/firebase";
 import { useAuthContext } from "../../context/AuthContext";
-const StyleUserActions = styled.div`
+import { useQuery } from "@tanstack/react-query";
+import { getCart } from "../../api/firebase";
+const StyleUserActions = styled.nav`
   width: var(--inner);
   display: flex;
   justify-content: end;
+  gap: 20px;
   .user-action {
     cursor: pointer;
     color: var(--gray-700);
@@ -27,14 +29,22 @@ export default function UserActions({ loginModalHandler, handleLogout }) {
   return (
     <StyleUserActions>
       {user ? (
-        <Link className="user-action" onClick={() => logout().then(handleLogout)}>
-          <FiLogOut size={20} />
-          Logout
-        </Link>
+        <>
+          {user.isAdmin && (
+            <Link to="/products/new" className="user-action">
+              제품추가
+            </Link>
+          )}
+          <Link to="/cart" className="user-action">
+            장바구니
+          </Link>
+          <Link className="user-action" onClick={() => logout().then(handleLogout)}>
+            로그아웃
+          </Link>
+        </>
       ) : (
         <div className="user-action" onClick={() => loginModalHandler(true)}>
-          <FiUser size={20} />
-          Login
+          로그인
         </div>
       )}
     </StyleUserActions>

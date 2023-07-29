@@ -9,7 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { v4 as uuid } from "uuid";
-import { getDatabase, ref, get, set } from "firebase/database";
+import { getDatabase, ref, get, set, remove } from "firebase/database";
 import { GoogleAuthProvider } from "firebase/auth";
 const apiKey = import.meta.env.VITE_APP_FIREBASE_API_KEY;
 const authDomain = import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN;
@@ -127,4 +127,21 @@ export async function getProducts() {
 
       }
     });
+}
+
+export async function getCart(userId) {
+  return get(ref(database, `carts/${userId}`)).then(snapshot => {
+    const items = snapshot.val() || {};
+    return Object.values(items)
+  })
+}
+
+export async function addOrUpdateToCart(userId, product) {
+  return set(ref(database, `carts/${userId}/${product.id}`) , product).then((snapshot) => {
+
+  });
+}
+
+export async function removeFromCart(userId, productId) {
+  return remove(ref(database, `carts/${userId}/${productId}`))
 }

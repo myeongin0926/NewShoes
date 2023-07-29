@@ -8,7 +8,8 @@ import Home from "./pages/Home.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import NewProducts from "./pages/NewProducts.jsx";
-
+import Cart from "./pages/Cart.jsx";
+import ProtectedRoute from "./pages/ProtectedRoute.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,8 +18,27 @@ const router = createBrowserRouter([
     children: [
       { index: true, path: "/", element: <Home /> },
       { path: "/products", element: <Products /> },
-      { path: "/detail/:id", element: <ProductDetail /> },
-      { path: "/products/new", element: <NewProducts /> },
+      {
+        path: "/detail/:id",
+        element: <ProductDetail />,
+      },
+
+      {
+        path: "/products/new",
+        element: (
+          <ProtectedRoute requireAdmin>
+            <NewProducts />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
       { path: "*", element: <NotFound /> },
     ],
   },

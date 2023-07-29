@@ -3,10 +3,14 @@ import { useLocation } from "react-router-dom";
 import { styled } from "styled-components";
 import numToMoneyFormat from "../func/numToMoneyFormat";
 import Options from "../Components/productDetail/Options";
+import { useAuthContext } from "../context/AuthContext";
+import { addOrUpdateToCart } from "../api/firebase";
+
 const StyleDetail = styled.section`
   display: flex;
   padding-top: 30px;
   max-height: 77vh;
+
   .image-box {
     width: 50%;
     display: flex;
@@ -66,18 +70,25 @@ const StyleDetail = styled.section`
   }
 `;
 export default function ProductDetail() {
+  const { uid } = useAuthContext();
   const {
     state: {
       product: { id, mainImage, subImage, title, description, price, options, category },
     },
   } = useLocation();
-  const [activeOption, setActiveOption] = useState(null)
+  const [selectedOption, setSelectedOption] = useState(null)
   const [currentMainImage, setCurrentMainImage] = useState(mainImage);
   const currentImageHandler = (e) => {
     setCurrentMainImage(e.target.src)
   }
   const activeOptionHandler = (num) => {
-    setActiveOption(num)
+    setSelectedOption(num)
+  }
+
+  const cartAddHandler = () => {
+    const product = { id, mainImage, title, price, option: selectedOption, quantity: 1 };
+    addOrUpdateToCart(uid, product)
+    console.log(uid,product)
   }
 
   return (
@@ -107,10 +118,10 @@ export default function ProductDetail() {
         <p>{description}</p>
         <Options
           options={options}
-          activeOption={activeOption}
+          activeOption={selectedOption}
           activeOptionHandler={activeOptionHandler}
         />
-        <button>장바구니에 담기</button>
+        <button onClick={cartAddHandler}>장바구니에 담기</button>
       </div>
     </StyleDetail>
   );
