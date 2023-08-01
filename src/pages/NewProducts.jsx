@@ -1,10 +1,8 @@
-import { useAuthContext } from "../context/AuthContext";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
 import { styled } from "styled-components";
 import { uploadImage } from "../api/uploader";
 import LoadingModal from "../Components/LoadingModal";
-import { addNewProduct } from "../api/firebase";
+import useProducts from "../hooks/useProducts";
 const StyleAdmin = styled.section`
   height: calc(100vh - 150px);
   display: flex;
@@ -69,8 +67,7 @@ export default function NewProducts() {
   const [ sucess , setSucess] = useState(false)
   const[ file,setFile ] = useState()
   const[ subFile,setSubFile ] = useState()
-
-
+  const { addProduct } = useProducts();
 
 const productSubmitHandler = async (e) => {
   e.preventDefault();
@@ -79,12 +76,14 @@ const productSubmitHandler = async (e) => {
   try {
      files.push(await uploadImage(file));
      files.push(await uploadImage(subFile));
-    console.log(files)
-    await addNewProduct(product, files)
-    setIsLoading(false);
-    setSucess(true);
-    setTimeout(() => setSucess(false), 3000);
-    setProduct({});
+    addProduct.mutate({ product, files }, {
+      onSuccess: () => {
+        setIsLoading(false);
+        setSucess(true);
+        setTimeout(() => setSucess(false), 3000);
+        setProduct({});
+    }})
+
   } catch (error) {
     console.error(error);
     setIsLoading(false);

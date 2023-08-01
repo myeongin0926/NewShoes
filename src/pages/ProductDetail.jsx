@@ -85,10 +85,10 @@ export default function ProductDetail() {
     setSelectedOption(num)
   }
 
-  const cartAddHandler = () => {
-    const product = { id, mainImage, title, price, option: selectedOption, quantity: 1 };
-    addOrUpdateToCart(uid, product)
-    console.log(uid,product)
+  const cartAddHandler = async () => {
+    if(!selectedOption) alert('옵션을 선택해주세요')
+    const product = { id, mainImage, subImage, title, description, price, options, category ,option: selectedOption, quantity: 1  };
+    await addOrUpdateToCart(uid, product)
   }
 
   return (

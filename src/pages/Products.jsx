@@ -1,9 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import { getProducts } from "../api/firebase";
 import LoadingModal from "../Components/LoadingModal";
 import ProductCard from "../Components/Products/ProductCard";
-import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
+import useProducts from "../hooks/useProducts";
 const StyleProducts = styled.section`
   ul{
     display: flex;
@@ -14,8 +12,8 @@ const StyleProducts = styled.section`
   }
 `
 export default function Products() {
-  const { isLoading, error, data: products } = useQuery(["products"], getProducts);
-
+const{ productsQuery : {isLoading, error, data:products}} = useProducts()
+  console.log(isLoading, error, products)
   if (error) {
     return <div>{error}</div>
   }
