@@ -1,4 +1,4 @@
-import LoadingModal from "../Components/LoadingModal";
+import LoadingModal from "../Components/loading/LoadingModal";
 import ProductCard from "../Components/Products/ProductCard";
 import { styled } from "styled-components";
 import useProducts from "../hooks/useProducts";

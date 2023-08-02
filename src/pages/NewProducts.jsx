@@ -1,7 +1,7 @@
 import {  useState } from "react";
 import { styled } from "styled-components";
 import { uploadImage } from "../api/uploader";
-import LoadingModal from "../Components/LoadingModal";
+import LoadingModal from "../Components/loading/LoadingModal";
 import useProducts from "../hooks/useProducts";
 const StyleAdmin = styled.section`
   height: calc(100vh - 150px);
@@ -76,13 +76,13 @@ const productSubmitHandler = async (e) => {
   try {
      files.push(await uploadImage(file));
      files.push(await uploadImage(subFile));
-    addProduct.mutate({ product, files }, {
+     addProduct.mutate({ product, files }, {
       onSuccess: () => {
         setIsLoading(false);
         setSucess(true);
         setTimeout(() => setSucess(false), 3000);
         setProduct({});
-    }})
+     }})
 
   } catch (error) {
     console.error(error);

@@ -1,8 +1,8 @@
 import { styled } from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import numToMoneyFormat from '../../func/numToMoneyFormat';
-import { AiOutlineMinusCircle, AiOutlinePlusCircle, AiOutlineDelete } from "react-icons/ai";
-import { addOrUpdateToCart, removeFromCart } from '../../api/firebase';
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import useCart from '../../hooks/useCart';
 const StyleCartItem = styled.li`
   height: 150px;
   display: flex;
@@ -64,18 +64,19 @@ const StyleCartItem = styled.li`
   
 `;
 
-export default function CartItem({ product, uid }) {
+export default function CartItem({ product }) {
     const navigation = useNavigate();
-    const productDetailHandler = () => navigation(`/detail/${id}`, { state: { product } });
     const { id, mainImage, option, price, quantity, title } = product;
-
+    const { addOrUpdateItem, removeItem } = useCart();
+    const productDetailHandler = () => navigation(`/detail/${id}`, { state: { product } });
     const handleMinus = () => {
-        if (quantity < 2) return;
-        addOrUpdateToCart(uid, { ...product, quantity: parseInt(quantity) - 1 });
+        if (quantity < 2);
+        else {
+          addOrUpdateItem.mutate({ ...product, quantity: quantity - 1 });
+        }
     }
-    const handlePlus = () => addOrUpdateToCart(uid, { ...product, quantity: parseInt(quantity) + 1 });
-    
-    const handleDelete = () => removeFromCart(uid, id)
+    const handlePlus = () => addOrUpdateItem.mutate({ ...product, quantity: quantity + 1 });
+    const handleDelete = () => removeItem.mutate( id , option );
     
     return (
       <StyleCartItem>
@@ -85,7 +86,7 @@ export default function CartItem({ product, uid }) {
         </h3>
         <div className="price-quantity">
           <span className="price">{numToMoneyFormat(price)} 원</span>
-                <span className="quantity">
+          <span className="quantity">
             <AiOutlinePlusCircle size={20} onClick={handlePlus} />
             {quantity}
             <AiOutlineMinusCircle size={20} onClick={handleMinus} />

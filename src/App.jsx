@@ -19,7 +19,7 @@ const StyleApp = styled.main`
 const queryClient = new QueryClient();
 
 function App() {
-  const { user, setUser } = useAuthContext();
+  const { setUser } = useAuthContext();
   const [loginModal, setLoginModal] = useState(false);
   const navigation = useNavigate();
   const {category} = useParams()

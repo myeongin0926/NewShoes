@@ -66,6 +66,10 @@ const StyleDetail = styled.section`
       color: white;
       font-size: 20px;
       margin-top: 20px;
+      cursor: pointer;
+      &:hover{
+        background: var(--primary);
+      }
     }
   }
 `;
@@ -88,7 +92,7 @@ export default function ProductDetail() {
   const cartAddHandler = async () => {
     if(!selectedOption) alert('옵션을 선택해주세요')
     const product = { id, mainImage, subImage, title, description, price, options, category ,option: selectedOption, quantity: 1  };
-    await addOrUpdateToCart(uid, product)
+    await addOrUpdateToCart(uid, product, selectedOption)
   }
 
   return (

@@ -2,8 +2,6 @@ import { styled } from "styled-components";
 import { Link } from "react-router-dom";
 import { logout } from "../../api/firebase";
 import { useAuthContext } from "../../context/AuthContext";
-import { useQuery } from "@tanstack/react-query";
-import { getCart } from "../../api/firebase";
 const StyleUserActions = styled.nav`
   width: var(--inner);
   display: flex;

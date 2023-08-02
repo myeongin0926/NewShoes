@@ -136,12 +136,14 @@ export async function getCart(userId) {
   })
 }
 
-export async function addOrUpdateToCart(userId, product) {
-  return set(ref(database, `carts/${userId}/${product.id}`) , product).then((snapshot) => {
-
-  });
+export async function addOrUpdateToCart(userId, product, selectedOption) {
+  return set(ref(database, `carts/${userId}/${product.id + selectedOption}`), product)
 }
 
-export async function removeFromCart(userId, productId) {
-  return remove(ref(database, `carts/${userId}/${productId}`))
+export async function removeFromCart(userId, productId, option) {
+  return remove(ref(database, `carts/${userId}/${productId + option}`));
+}
+
+export async function paymentCart(userId) {
+  return remove(ref(database, `carts/${userId}`));
 }
