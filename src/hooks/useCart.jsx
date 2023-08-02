@@ -10,7 +10,7 @@ export default function useCart() {
   });
     
   const addOrUpdateItem = useMutation(
-    (product, selectedOption) => addOrUpdateToCart(uid, product, selectedOption),
+    (product) => addOrUpdateToCart(uid, product, product.option),
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["carts", uid]);
@@ -18,11 +18,15 @@ export default function useCart() {
     }
   );
 
-  const removeItem = useMutation((id, option) => removeFromCart(uid, id, option), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(["carts", uid]);
-    },
-  });
+  const removeItem = useMutation(
+    ({ id, option }) => removeFromCart(uid, id, option),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["carts", uid]);
+      },
+    }
+  );
+
   const payment = useMutation(() => paymentCart(uid), {
     onSuccess: () => {
       queryClient.invalidateQueries(["carts", uid]);

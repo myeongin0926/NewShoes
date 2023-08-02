@@ -13,7 +13,6 @@ const StyleProducts = styled.section`
 `
 export default function Products() {
 const{ productsQuery : {isLoading, error, data:products}} = useProducts()
-  console.log(isLoading, error, products)
   if (error) {
     return <div>{error}</div>
   }

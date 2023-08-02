@@ -45,7 +45,7 @@ export default function Cart() {
         <>
           <ul>
             {products.map((product) => (
-              <CartItem key={product.id} product={product} />
+              <CartItem key={product.id + product.option} product={product} />
             ))}
           </ul>{" "}
           <CartPayment products={products} />

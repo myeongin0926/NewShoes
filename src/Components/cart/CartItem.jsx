@@ -76,7 +76,8 @@ export default function CartItem({ product }) {
         }
     }
     const handlePlus = () => addOrUpdateItem.mutate({ ...product, quantity: quantity + 1 });
-    const handleDelete = () => removeItem.mutate( id , option );
+  const handleDelete = () => removeItem.mutate({ id, option })
+  
     
     return (
       <StyleCartItem>
