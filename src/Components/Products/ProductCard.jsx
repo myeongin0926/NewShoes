@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import { styled } from 'styled-components';
 import numToMoneyFormat from '../../func/numToMoneyFormat';
 import { useNavigate } from 'react-router-dom';
@@ -14,13 +14,15 @@ const StyleProductCard = styled.li`
   margin-bottom: 40px;
   position: relative;
   cursor: pointer;
-  .logo-image{
+
+  .logo-image {
     position: absolute;
     width: 60px;
     right: 10px;
     z-index: 1;
+  }
 
-  } .product-image {
+  .product-image {
     margin: 0 auto;
     width: 100%;
     overflow: hidden;
@@ -28,16 +30,17 @@ const StyleProductCard = styled.li`
     justify-content: center;
     align-items: center;
     flex: 1;
+    img:hover {
+      transform: scale(1.03);
+    }
   }
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
     transition: all.2s;
-    &:hover {
-      transform: scale(1.03);
-    }
   }
 
   .product-description {

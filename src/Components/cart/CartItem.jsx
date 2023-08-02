@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import numToMoneyFormat from '../../func/numToMoneyFormat';
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import useCart from '../../hooks/useCart';
+import { notifySuccess } from '../toast/Notify';
 const StyleCartItem = styled.li`
   height: 150px;
   display: flex;
@@ -75,8 +76,12 @@ export default function CartItem({ product }) {
           addOrUpdateItem.mutate({ ...product, quantity: quantity - 1 });
         }
     }
+  
     const handlePlus = () => addOrUpdateItem.mutate({ ...product, quantity: quantity + 1 });
-  const handleDelete = () => removeItem.mutate({ id, option })
+    const handleDelete = () => {
+    removeItem.mutate({ id, option });
+    notifySuccess('장바구니에서 제거되었습니다.')
+  }
   
     
     return (

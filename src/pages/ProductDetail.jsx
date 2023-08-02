@@ -5,6 +5,7 @@ import numToMoneyFormat from "../func/numToMoneyFormat";
 import Options from "../Components/productDetail/Options";
 import { useAuthContext } from "../context/AuthContext";
 import { addOrUpdateToCart } from "../api/firebase";
+import { notifySuccess, notifyWarning } from "../Components/toast/Notify";
 
 const StyleDetail = styled.section`
   display: flex;
@@ -88,11 +89,30 @@ export default function ProductDetail() {
   const activeOptionHandler = (num) => {
     setSelectedOption(num)
   }
-
+  
   const cartAddHandler = async () => {
-    if(!selectedOption) alert('옵션을 선택해주세요')
-    const product = { id, mainImage, subImage, title, description, price, options, category ,option: selectedOption, quantity: 1  };
-    await addOrUpdateToCart(uid, product, selectedOption)
+    if (!uid) {
+      notifyWarning('로그인이 필요한 서비스입니다.')
+    } else if (!selectedOption) { 
+      notifyWarning("옵션을 선택해주세요.");
+    } else {
+      const newProduct = {
+        id,
+        mainImage,
+        subImage,
+        title,
+        description,
+        price,
+        options,
+        category,
+        option: selectedOption,
+        quantity: 1,
+      };
+      await addOrUpdateToCart(uid, newProduct, selectedOption);
+      notifySuccess('장바구니에 추가되었습니다.')
+    }
+
+
   }
 
   return (

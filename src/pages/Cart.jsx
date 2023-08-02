@@ -37,8 +37,6 @@ export default function Cart() {
   const { cartQuery: { isLoading, error, data: products } } = useCart();
   if (isLoading) return <LoadingModal />
   if (error) return 'error'
-
- console.log(products)
   return (
     <StyleCart>
       {products.length ? (
