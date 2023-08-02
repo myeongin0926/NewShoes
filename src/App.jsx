@@ -7,6 +7,8 @@ import { useAuthContext } from "./context/AuthContext";
 import { adminUser } from "./api/firebase";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { NotifyContainer } from "./Components/toast/Notify.jsx";
+
 const StyleApp = styled.main`
   & > main {
     margin: 0 auto;
@@ -15,15 +17,17 @@ const StyleApp = styled.main`
     height: 100vh;
     position: relative;
   }
+
+
 `;
 const queryClient = new QueryClient();
 
 function App() {
-  const { user, setUser } = useAuthContext();
+  const { setUser } = useAuthContext();
   const [loginModal, setLoginModal] = useState(false);
   const navigation = useNavigate();
-  const {category} = useParams()
-  useEffect(() => scrollTo(0,0), [category])
+  const { category } = useParams();
+  useEffect(() => scrollTo(0, 0), [category]);
   const loginModalHandler = (boo) => {
     setLoginModal(boo);
   };
@@ -50,7 +54,7 @@ function App() {
         </main>
       </StyleApp>
       {loginModal && <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />}
- 
+      <NotifyContainer/>
     </QueryClientProvider>
   );
 }

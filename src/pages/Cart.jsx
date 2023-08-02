@@ -1,13 +1,13 @@
-import { useAuthContext } from "../context/AuthContext";
-import { useQuery } from "@tanstack/react-query";
-import { getCart } from "../api/firebase";
-import LoadingModal from "../Components/LoadingModal";
+import LoadingModal from "../Components/loading/LoadingModal";
 import CartItem from "../Components/cart/CartItem";
 import { styled } from "styled-components";
 import CartPayment from "../Components/cart/CartPayment";
+import useCart from "../hooks/useCart";
+
+
 const StyleCart = styled.section`
   height: 80%;
-  ul {
+  ul{
     height: 100%;
     overflow: auto;
     margin-bottom: 10px;
@@ -20,23 +20,39 @@ const StyleCart = styled.section`
     }
 
     &::-webkit-scrollbar-thumb {
-      background: var(--positive)
+      background: var(--positive);
     }
   }
-
-
+   .empty-cart {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: var(--gray-500);
+   }
 `;
 export default function Cart() {
-  const { uid } = useAuthContext();
-    const { data: products, isLoading } = useQuery(["carts"], () => getCart(uid));
+  const { cartQuery: { isLoading, error, data: products } } = useCart();
   if (isLoading) return <LoadingModal />
-    
-  return (<StyleCart>
-    <ul>
-      {products.map((product) => <CartItem key={product.id} product={product} uid={uid} />)}
-    </ul>
-    <CartPayment products={products} />
-</StyleCart>);
+  if (error) return 'error'
+  return (
+    <StyleCart>
+      {products.length ? (
+        <>
+          <ul>
+            {products.map((product) => (
+              <CartItem key={product.id + product.option} product={product} />
+            ))}
+          </ul>{" "}
+          <CartPayment products={products} />
+        </>
+      ) : (
+        <div className="empty-cart">장바구니가 비어있습니다</div>
+      )}
+    </StyleCart>
+  );
 }
 
 

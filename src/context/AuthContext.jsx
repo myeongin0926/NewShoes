@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import { onUserStateChange } from "../api/firebase";
-import LoadingModal from "../Components/LoadingModal";
+import LoadingModal from "../Components/loading/LoadingModal";
 
 const AuthContext = createContext();
 

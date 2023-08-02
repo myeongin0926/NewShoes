@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { styled } from "styled-components";
-import LoadingModal from "../LoadingModal";
+import LoadingModal from "../loading/LoadingModal";
 import { googleLogin, emailLogin } from "../../api/firebase";
 const StyleLogin = styled.section`
   background: var(--modal-back);
@@ -216,7 +216,7 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
     if (validateForm()) {
       emailLogin(setIsLoading, loginModalHandler, loginSwitch, form, idInputRef, passwordInputRef, setForm).then(
         (res) => {
-          if (res) handleLogin(res);
+          if (res) handleLogin(res) 
         }
       );
     }

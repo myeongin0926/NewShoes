@@ -1,4 +1,7 @@
 import { styled } from "styled-components";
+import numToMoneyFormat from "../../func/numToMoneyFormat";
+import useCart from "../../hooks/useCart";
+import { notifySuccess } from "../toast/Notify";
 
 const StyleCartPayment = styled.section`
   height: 20%;
@@ -28,30 +31,45 @@ const StyleCartPayment = styled.section`
     }
   }
 `;
-import numToMoneyFormat from "../../func/numToMoneyFormat";
 export default function CartPayment({ products }) {
     const productPriceTotal = products.reduce((acc, cur) => {
-     return acc += +cur.price
+      return acc += +cur.price * cur.quantity
     }, 0)
-    console.log(products.length);
+    const productQuantityTotal = products.reduce((acc, cur) => {
+      return (acc +=  cur.quantity);
+    }, 0);
+    const { payment } = useCart();
+
+    const paymentCart =  () => {
+        payment.mutate({}, {
+            onSuccess: () => {
+               notifySuccess('결제가 완료되었습니다.')
+            }
+        })
+    }
 
     return (
-      <StyleCartPayment>
+        <StyleCartPayment>
         <div className="products-payment-description">
-          <span>
-            {products.length
-              ? `${products[0].title} 외 ${products.length - 1}개의 상품`
-              : "상품이 없습니다"}
-          </span>
-          <span>+</span>
-          {products.length > 2 ? (
-            <strike>3개 이상 배송비 무료</strike>
+          {products.length ? (
+            <>
+              {" "}
+              <span>
+                {products[0].title} 외 {productQuantityTotal - 1}개의 상품
+              </span>
+              <span>+</span>
+              {productQuantityTotal > 2 ? (
+                <strike>3개 이상 배송비 무료</strike>
+              ) : (
+                <span>배송비 3000원</span>
+              )}
+              <span>=</span> <span>{numToMoneyFormat(productPriceTotal + 3000)}원</span>
+            </>
           ) : (
-            <span>배송비 3000원</span>
+            "상품이 없습니다"
           )}
-          <span>=</span> <span>{numToMoneyFormat(productPriceTotal + 3000)}원</span>
         </div>
-        <button>결제 하기</button>
+        <button onClick={paymentCart}>결제 하기</button>
       </StyleCartPayment>
     );
 }
