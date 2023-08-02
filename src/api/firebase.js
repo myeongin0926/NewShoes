@@ -11,6 +11,7 @@ import {
 import { v4 as uuid } from "uuid";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
 import { GoogleAuthProvider } from "firebase/auth";
+import { notifySuccess } from "../Components/toast/Notify";
 const apiKey = import.meta.env.VITE_APP_FIREBASE_API_KEY;
 const authDomain = import.meta.env.VITE_APP_FIREBASE_AUTH_DOMAIN;
 const projectId = import.meta.env.VITE_APP_FIREBASE_PROJECT_ID;
@@ -35,9 +36,7 @@ export const googleLogin = () => {
     .then((result) => {
       return result.user;
     })
-    .catch((error) => {
-      console.log("error", error);
-    });
+
 };
 
 export const emailLogin = async (setLoading, loginModalHandler, login, form, idInputRef, passwordInputRef, setForm) => {
@@ -49,6 +48,7 @@ export const emailLogin = async (setLoading, loginModalHandler, login, form, idI
       await updateProfile(auth.currentUser, { displayName: name.text });
       loginModalHandler(false);
       setLoading(false);
+      notifySuccess("회원가입이 완료되었습니다.");
       return userCredential.user;
     } else {
       const userCredential = await signInWithEmailAndPassword(auth, id.text, password.text);
@@ -56,6 +56,7 @@ export const emailLogin = async (setLoading, loginModalHandler, login, form, idI
       setLoading(false);
       return userCredential.user;
     }
+
   } catch (error) {
     setLoading(false);
     authenticationErrorHandler(error.code, setForm, idInputRef, passwordInputRef);
@@ -97,7 +98,6 @@ export const onUserStateChange = (callback) => {
 export async function adminUser(user) {
   return get(ref(database, "admins")) //
     .then((snapshot) => {
-      console.log(snapshot)
       if (snapshot.exists()) {
         const admins = snapshot.val();
         const isAdmin = admins.includes(user.uid);

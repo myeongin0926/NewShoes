@@ -216,7 +216,7 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
     if (validateForm()) {
       emailLogin(setIsLoading, loginModalHandler, loginSwitch, form, idInputRef, passwordInputRef, setForm).then(
         (res) => {
-          if (res) handleLogin(res);
+          if (res) handleLogin(res) 
         }
       );
     }

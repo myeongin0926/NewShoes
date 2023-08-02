@@ -6,7 +6,5 @@ const StyleHome = styled.section`
 `
 
 export default function Home() {
-  return <StyleHome>
-   <Products/>
-  </StyleHome>;
+  return  (<StyleHome><Products/></StyleHome>);
 }

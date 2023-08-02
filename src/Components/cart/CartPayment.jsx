@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import numToMoneyFormat from "../../func/numToMoneyFormat";
 import useCart from "../../hooks/useCart";
+import { notifySuccess } from "../toast/Notify";
 
 const StyleCartPayment = styled.section`
   height: 20%;
@@ -42,7 +43,7 @@ export default function CartPayment({ products }) {
     const paymentCart =  () => {
         payment.mutate({}, {
             onSuccess: () => {
-               console.log('결제 완료')
+               notifySuccess('결제가 완료되었습니다.')
             }
         })
     }
