@@ -1,18 +1,16 @@
-import LoadingModal from "../Components/loading/LoadingModal";
-import ProductCard from "../Components/Products/ProductCard";
+import LoadingModal from "../loading/LoadingModal";
+import ProductCard from "./ProductCard";
 import { styled } from "styled-components";
-import useProducts from "../hooks/useProducts";
+import useProducts from "../../hooks/useProducts";
 
 
 const StyleProducts = styled.section`
-  ul{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: calc(100% - 95%);
-    padding-bottom:100px
+  ul {
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 20px;
   }
-`
+`;
 export default function Products() {
 const{ productsQuery : {isLoading, error, data:products}} = useProducts()
   if (error) {

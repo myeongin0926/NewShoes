@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import useProducts from "../hooks/useProducts";
 import { styled } from "styled-components";
 import numToMoneyFormat from "../func/numToMoneyFormat";
 import Options from "../Components/productDetail/Options";
 import { useAuthContext } from "../context/AuthContext";
 import { addOrUpdateToCart } from "../api/firebase";
 import { notifySuccess, notifyWarning } from "../Components/toast/Notify";
+import { useParams } from "react-router";
+import LoadingModal from "../Components/loading/LoadingModal";
+import NotFound from "./NotFound";
 
 const StyleDetail = styled.section`
   display: flex;
-  padding-top: 30px;
   max-height: 77vh;
 
   .image-box {
@@ -76,19 +78,20 @@ const StyleDetail = styled.section`
 `;
 export default function ProductDetail() {
   const { uid } = useAuthContext();
-  const {
-    state: {
-      product: { id, mainImage, subImage, title, description, price, options, category },
-    },
-  } = useLocation();
-  const [selectedOption, setSelectedOption] = useState(null)
-  const [currentMainImage, setCurrentMainImage] = useState(mainImage);
-  const currentImageHandler = (e) => {
-    setCurrentMainImage(e.target.src)
-  }
-  const activeOptionHandler = (num) => {
-    setSelectedOption(num)
-  }
+  const { productId } = useParams();
+  const {productsQuery: { isLoading, error, data: products }} = useProducts();
+  const product = products?.filter(el => el.id === productId)[0]
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [currentMainImage, setCurrentMainImage] = useState(product?.mainImage);
+
+  useEffect(() => setCurrentMainImage(product?.mainImage), [product])
+  if (isLoading) return <LoadingModal /> 
+  if (error) return <NotFound />
+  const {description, mainImage, options, price, subImage, title} = product
+  const currentImageHandler = (e) =>  setCurrentMainImage(e.target.src)
+  
+  const activeOptionHandler = (num) => setSelectedOption(num)
+  
   
   const cartAddHandler = async () => {
     if (!uid) {
@@ -97,14 +100,7 @@ export default function ProductDetail() {
       notifyWarning("옵션을 선택해주세요.");
     } else {
       const newProduct = {
-        id,
-        mainImage,
-        subImage,
-        title,
-        description,
-        price,
-        options,
-        category,
+        ...product,
         option: selectedOption,
         quantity: 1,
       };

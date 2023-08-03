@@ -69,7 +69,7 @@ export default function CartItem({ product }) {
     const navigation = useNavigate();
     const { id, mainImage, option, price, quantity, title } = product;
     const { addOrUpdateItem, removeItem } = useCart();
-    const productDetailHandler = () => navigation(`/detail/${id}`, { state: { product } });
+    const productDetailHandler = () => navigation(`/detail/${id}`);
     const handleMinus = () => {
         if (quantity < 2);
         else {

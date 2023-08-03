@@ -1,10 +1,16 @@
+import { useEffect } from 'react';
 import { useAuthContext } from '../context/AuthContext';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 export default function ProtectedRoute({children, requireAdmin}) {
-    const { user } = useAuthContext()
-    const nav = useNavigate()
-    if (!user) nav('/');
-    else if(requireAdmin && !user.isAdmin) nav('/');
-    return  children
+    const { user } = useAuthContext();
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (!user) {
+         navigate("/");
+      } else if (requireAdmin && !user.isAdmin) {
+         navigate("/");
+     } 
+    })
+    return children;
 }
 

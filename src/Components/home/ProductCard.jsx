@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import numToMoneyFormat from '../../func/numToMoneyFormat';
 import { useNavigate } from 'react-router-dom';
 const StyleProductCard = styled.li`
-  width: calc(30%);
+  width: 100%;
   background-color: white;
   display: flex;
   border: 1px solid var(--gray-300);
@@ -77,4 +77,3 @@ export default function ProductCard({ product }) {
       </StyleProductCard>
     );
 }
-
