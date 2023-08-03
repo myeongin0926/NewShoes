@@ -6,15 +6,12 @@ import "swiper/css/pagination";
 import { useNavigate } from "react-router";
 
 const StyleSwiper = styled.section`
-  .swiper-wrapper {
-    margin-bottom: 30px;
-  }
   .swiper-slide {
     cursor: pointer;
     img {
       width: 100%;
       height: 350px;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
   .swiper-pagination{
