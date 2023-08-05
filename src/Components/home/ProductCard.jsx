@@ -1,79 +1,89 @@
-import { useState } from 'react';
-import { styled } from 'styled-components';
-import numToMoneyFormat from '../../func/numToMoneyFormat';
-import { useNavigate } from 'react-router-dom';
+import { styled } from "styled-components";
+import numToMoneyFormat from "../../func/numToMoneyFormat";
+import { useNavigate } from "react-router-dom";
 const StyleProductCard = styled.li`
   width: 100%;
   background-color: white;
   display: flex;
   border: 1px solid var(--gray-300);
-  flex-direction: column;
+  flex-direction: ${(props) => (props.$grid ? "column" : "")};
+  height: ${(props) => (props.$grid ? "auto" : "250px")};
   min-width: 250px;
   gap: 10px;
-  padding-bottom: 10px;
-  margin-bottom: 40px;
+  margin-bottom: ${(props) => (props.$grid ? "40px" : "10px")};
   position: relative;
   cursor: pointer;
+  box-shadow: 1px 1px 3px 1px var(--gray-100);
+  transition: all.2s;
+  &:hover {
+    box-shadow: 1px 1px 3px 1px var(--gray-300);
+  }
+  .product-image-box {
+    position: relative;
+    width: ${(props) => (props.$grid ? "100%" : "250px")};
+    overflow: hidden;
+    flex: ${(props) => (props.$grid ? "1" : "")};
+  }
 
-  .logo-image {
+  .product-logo {
     position: absolute;
-    width: 60px;
+    width: 50px;
     right: 10px;
     z-index: 1;
+    top: 10px;
+    right: 10px;
   }
 
   .product-image {
-    margin: 0 auto;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    img:hover {
-      transform: scale(1.03);
-    }
-  }
-
-  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 5px;
     transition: all.2s;
   }
 
-  .product-description {
+  .product-info {
+    color: var(--gray-900);
+    width: ${(props) => (props.$grid ? "100%" : "80%")};
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     span {
+      padding-bottom: 10px;
       font-size: 16px;
-      font-weight: bold;
+      font-weight: 500;
       display: block;
-      text-align: center;
+      text-align: ${(props) => (props.$grid ? "center" : "")};
     }
   }
+  .description {
+    padding-right: 20px;
+    word-break: keep-all;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
 `;
-export default function ProductCard({ product }) {
-  const{title,subImage,mainImage, id, category} = product
-  const [mouseOver, setMouseOver] = useState(false)
-  const mouseOverHandler = () => setMouseOver(!mouseOver)
+
+export default function ProductCard({ product, grid }) {
+  const { title, mainImage, id, category, description } = product;
   const navigation = useNavigate();
-  const productDetailHandler = () => navigation(`/detail/${id}` , {state :{ product }})
-    return (
-      <StyleProductCard onClick={productDetailHandler}>
-        <div className="logo-image">
-          <img src={`/public/images/${category}logo.png`} alt="" />
-        </div>
-        <div
-          className="product-image"
-          onMouseOver={mouseOverHandler}
-          onMouseLeave={mouseOverHandler}
-        >
-          <img src={mouseOver ?subImage :mainImage} alt="product image" />
-        </div>
-        <div className="product-description">
+  const productDetailHandler = () => navigation(`/detail/${id}`, { state: { product } });
+  return (
+    <StyleProductCard onClick={productDetailHandler} $grid={grid}>
+      <div className="product-image-box">
+        <img className="product-logo" src={`/images/${category}logo.png`} alt="" />
+        <img className="product-image" src={mainImage} alt="product image" />
+      </div>
+      <div className="product-info">
+        <div>
+          {" "}
           <span> {title}</span>
           <span>{numToMoneyFormat(product.price)}₩</span>
         </div>
-      </StyleProductCard>
-    );
+        {!grid && <p className="description">{description}</p>}
+      </div>
+    </StyleProductCard>
+  );
 }

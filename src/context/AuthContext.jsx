@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState(true); // 상태 변수 추가
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const localUser = JSON.parse(localStorage.getItem("user"));

@@ -39,6 +39,7 @@ const StyleDropDown = styled.div`
 
 export default function OptionDropDown({ sortOptionHandler, sortOption, options, name }) {
   const [isDropOpen, setIsDropOpen] = useState(false);
+
   useEffect(() => {
     if (isDropOpen) window.addEventListener("click", () => setIsDropOpen(false));
   }, [isDropOpen]);
@@ -63,7 +64,7 @@ export default function OptionDropDown({ sortOptionHandler, sortOption, options,
       </div>
       <ul>
         {options.map((menu) => (
-          <li onClick={() => dropMenuHandler(menu.option, menu.text, menu.value)} key={menu.text}>
+          <li  onClick={() => dropMenuHandler(menu.option, menu.text, menu.value)} key={menu.text}>
             {menu.text}
           </li>
         ))}

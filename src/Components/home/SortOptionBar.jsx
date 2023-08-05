@@ -1,11 +1,33 @@
 import { styled } from "styled-components";
 import OptionDropDown from "./OptionDropDown";
+import { MdOutlineViewDay, MdOutlineGridView } from "react-icons/md";
 
 const StyleSortOptionBar = styled.div`
   position: relative;
-  z-index: 10;
+  z-index: 5;
   padding: 20px;
-  .dropdown-box {
+  .view-option {
+    position: absolute;
+    top: 0;
+    right: 370px;
+    display: flex;
+    gap: 5px;
+    button {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      color: var(--gray-700);
+      cursor: pointer;
+      font-size: 27px;
+      &:hover {
+        color: var(--gray-900);
+      }
+      &.active {
+        color: var(--gray-900);
+      }
+    }
+  }
+  .option-box {
     width: 100%;
     position: absolute;
     display: flex;
@@ -28,9 +50,26 @@ export default function SortOptionBar({ sortOptionHandler, sortOption }) {
     { text: "아디다스", value: "adidas", option: "brand" },
   ];
 
+  const viewOptionHandler = (boo) => {
+    sortOptionHandler("grid", boo);
+  };
   return (
     <StyleSortOptionBar>
-      <div className="dropdown-box">
+      <div className="option-box">
+        <div className="view-option">
+          <button
+            onClick={() => viewOptionHandler(false)}
+            className={sortOption.grid ? "" : "active"}
+          >
+            <MdOutlineViewDay />
+          </button>
+          <button
+            onClick={() => viewOptionHandler(true)}
+            className={sortOption.grid ? "active" : ""}
+          >
+            <MdOutlineGridView />
+          </button>
+        </div>
         <OptionDropDown
           sortOptionHandler={sortOptionHandler}
           sortOption={sortOption}

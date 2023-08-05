@@ -4,12 +4,11 @@ import { styled } from "styled-components";
 import useProducts from "../../hooks/useProducts";
 import SortOptionBar from "./SortOptionBar";
 import { useState } from "react";
-const StyleProducts = styled.section`
-  ul {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 20px;
-  }
+const StyleProducts = styled.ul`
+  display: ${(props) => (props.$grid ? "grid" : "flex")};
+  flex-direction: column;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
 `;
 
 export default function Products() {
@@ -46,12 +45,10 @@ export default function Products() {
   return (
     <>
       <SortOptionBar sortOptionHandler={sortOptionHandler} sortOption={sortOption} />
-      <StyleProducts>
-        <ul>
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </ul>
+      <StyleProducts $grid={sortOption.grid}>
+        {products.map((product) => (
+          <ProductCard grid={sortOption.grid} key={product.id} product={product} />
+        ))}
       </StyleProducts>
     </>
   );
