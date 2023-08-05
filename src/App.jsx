@@ -24,8 +24,6 @@ function App() {
   const { setUser } = useAuthContext();
   const [loginModal, setLoginModal] = useState(false);
   const navigation = useNavigate();
-  const { category } = useParams();
-  useEffect(() => scrollTo(0, 0), [category]);
   const loginModalHandler = (boo) => {
     setLoginModal(boo);
   };

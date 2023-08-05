@@ -4,7 +4,7 @@ import { Navigation } from "swiper/modules";
 import useProducts from "../hooks/useProducts";
 import { styled } from "styled-components";
 import numToMoneyFormat from "../func/numToMoneyFormat";
-import Options from "../Components/productDetail/Options";
+import Options from "../Components/home/Options";
 import { useAuthContext } from "../context/AuthContext";
 import { addOrUpdateToCart } from "../api/firebase";
 import { notifySuccess, notifyWarning } from "../Components/toast/Notify";
@@ -74,7 +74,7 @@ export default function ProductDetail() {
 
   if (isLoading) return <LoadingModal />;
   if (error) return <NotFound />;
-  const { description, mainImage, options, price, subImage, title } = product;
+  const { description, mainImage, options, price, subImage, title, category } = product;
 
   const activeOptionHandler = (num) => {
     if (selectedOption === num) setSelectedOption(null);
@@ -109,7 +109,6 @@ export default function ProductDetail() {
         <SwiperSlide>
           <img src={mainImage} alt="product Main Image" />
         </SwiperSlide>
-
         <SwiperSlide>
           <img src={subImage} alt="product Sub Image" />
         </SwiperSlide>

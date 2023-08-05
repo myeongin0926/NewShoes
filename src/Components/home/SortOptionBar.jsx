@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 import OptionDropDown from "./OptionDropDown";
 import { MdOutlineViewDay, MdOutlineGridView } from "react-icons/md";
-
+import { BiReset } from "react-icons/bi";
+import { useSortOptionContext } from "../../context/SortOptionContext";
 const StyleSortOptionBar = styled.div`
   position: relative;
   z-index: 5;
@@ -12,19 +13,19 @@ const StyleSortOptionBar = styled.div`
     right: 370px;
     display: flex;
     gap: 5px;
-    button {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      color: var(--gray-700);
-      cursor: pointer;
-      font-size: 27px;
-      &:hover {
-        color: var(--gray-900);
-      }
-      &.active {
-        color: var(--gray-900);
-      }
+  }
+  button {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    color: var(--gray-700);
+    cursor: pointer;
+    font-size: 27px;
+    &:hover {
+      color: var(--gray-900);
+    }
+    &.active {
+      color: var(--gray-900);
     }
   }
   .option-box {
@@ -38,7 +39,7 @@ const StyleSortOptionBar = styled.div`
   }
 `;
 
-export default function SortOptionBar({ sortOptionHandler, sortOption }) {
+export default function SortOptionBar() {
   const sortOptions = [
     { text: "-", value: "", option: "sort" },
     { text: "높은 가격순", value: "higher", option: "sort" },
@@ -49,6 +50,7 @@ export default function SortOptionBar({ sortOptionHandler, sortOption }) {
     { text: "나이키", value: "nike", option: "brand" },
     { text: "아디다스", value: "adidas", option: "brand" },
   ];
+  const { sortOption, sortOptionHandler, sortOptionResetHandler } = useSortOptionContext();
 
   const viewOptionHandler = (boo) => {
     sortOptionHandler("grid", boo);
@@ -68,6 +70,9 @@ export default function SortOptionBar({ sortOptionHandler, sortOption }) {
             className={sortOption.grid ? "active" : ""}
           >
             <MdOutlineGridView />
+          </button>{" "}
+          <button onClick={sortOptionResetHandler}>
+            <BiReset size={27} />
           </button>
         </div>
         <OptionDropDown
@@ -81,7 +86,7 @@ export default function SortOptionBar({ sortOptionHandler, sortOption }) {
           sortOption={sortOption}
           options={brandOptions}
           name="brand"
-        />
+        />{" "}
       </div>
     </StyleSortOptionBar>
   );

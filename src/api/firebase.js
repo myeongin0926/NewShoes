@@ -32,14 +32,20 @@ const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
 
 export const googleLogin = () => {
-  return signInWithPopup(auth, provider)
-    .then((result) => {
-      return result.user;
-    })
-
+  return signInWithPopup(auth, provider).then((result) => {
+    return result.user;
+  });
 };
 
-export const emailLogin = async (setLoading, loginModalHandler, login, form, idInputRef, passwordInputRef, setForm) => {
+export const emailLogin = async (
+  setLoading,
+  loginModalHandler,
+  login,
+  form,
+  idInputRef,
+  passwordInputRef,
+  setForm
+) => {
   const { id, password, name } = form;
   setLoading(true);
   try {
@@ -56,7 +62,6 @@ export const emailLogin = async (setLoading, loginModalHandler, login, form, idI
       setLoading(false);
       return userCredential.user;
     }
-
   } catch (error) {
     setLoading(false);
     authenticationErrorHandler(error.code, setForm, idInputRef, passwordInputRef);
@@ -108,36 +113,35 @@ export async function adminUser(user) {
 }
 
 export async function addNewProduct(product, images) {
-  const id = uuid()
+  const id = uuid();
+  console.log(images);
   set(ref(database, `products/${id}`), {
     ...product,
     id,
     price: parseInt(product.price),
-    mainImage : images[0],
-    subImage : images[1],
-    options : product.options.split(',')
-  })
+    mainImage: images[0],
+    subImage: images[1],
+    options: product.options.split(","),
+  });
 }
 
 export async function getProducts() {
-  return get(ref(database, "products"))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        return Object.values(snapshot.val());
-
-      }
-    });
+  return get(ref(database, "products")).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+  });
 }
 
 export async function getCart(userId) {
-  return get(ref(database, `carts/${userId}`)).then(snapshot => {
+  return get(ref(database, `carts/${userId}`)).then((snapshot) => {
     const items = snapshot.val() || {};
-    return Object.values(items)
-  })
+    return Object.values(items);
+  });
 }
 
 export async function addOrUpdateToCart(userId, product, selectedOption) {
-  return set(ref(database, `carts/${userId}/${product.id + selectedOption}`), product)
+  return set(ref(database, `carts/${userId}/${product.id + selectedOption}`), product);
 }
 
 export async function removeFromCart(userId, productId, option) {

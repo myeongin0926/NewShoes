@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard";
 import { styled } from "styled-components";
 import useProducts from "../../hooks/useProducts";
 import SortOptionBar from "./SortOptionBar";
-import { useState } from "react";
+import { useSortOptionContext } from "../../context/SortOptionContext";
 const StyleProducts = styled.ul`
   display: ${(props) => (props.$grid ? "grid" : "flex")};
   flex-direction: column;
@@ -16,15 +16,7 @@ export default function Products() {
     productsQuery: { isLoading, error, data },
   } = useProducts();
 
-  const [sortOption, setSortOption] = useState({
-    brand: { text: "-", value: "" },
-    sort: { text: "-", value: "" },
-    grid: true,
-  });
-
-  const sortOptionHandler = (option, value) => {
-    setSortOption((preOption) => ({ ...preOption, [option]: value }));
-  };
+  const { sortOption } = useSortOptionContext();
 
   if (error) {
     return <div>{error}</div>;
@@ -44,7 +36,7 @@ export default function Products() {
 
   return (
     <>
-      <SortOptionBar sortOptionHandler={sortOptionHandler} sortOption={sortOption} />
+      <SortOptionBar />
       <StyleProducts $grid={sortOption.grid}>
         {products.map((product) => (
           <ProductCard grid={sortOption.grid} key={product.id} product={product} />

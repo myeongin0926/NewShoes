@@ -30,7 +30,7 @@ const StyleProductCard = styled.li`
     width: 50px;
     right: 10px;
     z-index: 1;
-    top: 10px;
+    top: 15px;
     right: 10px;
   }
 
@@ -60,9 +60,9 @@ const StyleProductCard = styled.li`
     word-break: keep-all;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; 
+    -webkit-line-clamp: 3;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
   }
 `;
 
@@ -73,7 +73,7 @@ export default function ProductCard({ product, grid }) {
   return (
     <StyleProductCard onClick={productDetailHandler} $grid={grid}>
       <div className="product-image-box">
-        <img className="product-logo" src={`/images/${category}logo.png`} alt="" />
+        <img className="product-logo" src={`/images/${category}logo.png`} alt="product logo" />
         <img className="product-image" src={mainImage} alt="product image" />
       </div>
       <div className="product-info">

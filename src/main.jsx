@@ -9,6 +9,8 @@ import { AuthContextProvider } from "./context/AuthContext.jsx";
 import NewProducts from "./pages/NewProducts.jsx";
 import Cart from "./pages/Cart.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import { SortOptionContextProvider } from "./context/SortOptionContext.jsx";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +45,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <AuthContextProvider>
-    <RouterProvider router={router} />
-  </AuthContextProvider>
+  <SortOptionContextProvider>
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
+  </SortOptionContextProvider>
 );

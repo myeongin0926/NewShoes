@@ -6,6 +6,7 @@ const StyleUserActions = styled.nav`
   width: var(--inner);
   display: flex;
   justify-content: end;
+  align-items: center;
   gap: 20px;
   .user-action {
     cursor: pointer;
@@ -13,12 +14,12 @@ const StyleUserActions = styled.nav`
     font-size: 16px;
     font-weight: 600;
     transition: all.2s;
-    display: flex;
-    align-items: center;
-    gap: 5px;
     &:hover {
       color: var(--black);
     }
+  }
+  .user-profile {
+    font-weight: bold;
   }
 `;
 
@@ -45,6 +46,7 @@ export default function UserActions({ loginModalHandler, handleLogout }) {
           로그인
         </div>
       )}
+      {user && <div className="user-profile">{user.displayName}</div>}
     </StyleUserActions>
   );
 }
