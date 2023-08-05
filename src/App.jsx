@@ -2,11 +2,10 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
 import LoginModal from "./Components/login/LoginModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthContext } from "./context/AuthContext";
 import { adminUser } from "./api/firebase";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
 import { NotifyContainer } from "./Components/toast/Notify.jsx";
 
 const StyleApp = styled.main`
@@ -18,7 +17,13 @@ const StyleApp = styled.main`
     position: relative;
   }
 `;
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   const { setUser } = useAuthContext();

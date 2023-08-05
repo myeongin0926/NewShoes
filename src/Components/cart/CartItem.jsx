@@ -95,7 +95,7 @@ export default function CartItem({ product }) {
       <img src={mainImage} alt="product Image" />
       <div className="product-title-price">
         <h3 onClick={productDetailHandler}>{title}</h3>
-        <span>옵션 - {option}</span>
+        <span>사이즈 - {option}</span>
       </div>
       <div className="price-quantity">
         <span className="price">{numToMoneyFormat(price)} 원</span>

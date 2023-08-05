@@ -12,7 +12,7 @@ import { useParams } from "react-router";
 import LoadingModal from "../Components/loading/LoadingModal";
 import NotFound from "./NotFound";
 import "swiper/css/navigation";
-
+import useCart from "../hooks/useCart";
 const StyleDetail = styled.section`
   display: flex;
   gap: 50px;
@@ -65,34 +65,40 @@ const StyleDetail = styled.section`
 `;
 export default function ProductDetail() {
   const { uid } = useAuthContext();
-  const { productId } = useParams();
+  let {
+    cartQuery: { data: cartItems },
+    addOrUpdateItem,
+  } = useCart();
+
+  const { productId: currentProductId } = useParams();
   const {
     productsQuery: { isLoading, error, data: products },
   } = useProducts();
-  const product = products?.filter((el) => el.id === productId)[0];
+  const product = products?.filter((el) => el.id === currentProductId)[0];
   const [selectedOption, setSelectedOption] = useState(null);
-
   if (isLoading) return <LoadingModal />;
   if (error) return <NotFound />;
-  const { description, mainImage, options, price, subImage, title, category } = product;
+  const { description, mainImage, options, price, subImage, title } = product;
 
   const activeOptionHandler = (num) => {
     if (selectedOption === num) setSelectedOption(null);
     else setSelectedOption(num);
   };
-
   const cartAddHandler = async () => {
     if (!uid) {
       notifyWarning("로그인이 필요한 서비스입니다.");
     } else if (!selectedOption) {
       notifyWarning("옵션을 선택해주세요.");
     } else {
+      const currentProduct = cartItems.find(
+        (product) => product.id === currentProductId && product.option === selectedOption
+      );
       const newProduct = {
         ...product,
         option: selectedOption,
-        quantity: 1,
+        quantity: currentProduct ? currentProduct.quantity + 1 : 1,
       };
-      await addOrUpdateToCart(uid, newProduct, selectedOption);
+      addOrUpdateItem.mutate(newProduct);
       notifySuccess("장바구니에 추가되었습니다.");
     }
   };
