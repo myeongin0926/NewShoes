@@ -26,7 +26,7 @@ const StyleHeader = styled.header`
     z-index: 1;
     display: flex;
     padding-top: 10px;
-    img{
+    img {
       width: 70px;
     }
   }
@@ -35,9 +35,11 @@ const StyleHeader = styled.header`
 export default function Header({ loginModalHandler, handleLogout }) {
   return (
     <StyleHeader>
-      <div className='inner'>
+      <div className="inner">
         <h1>
-          <Link to="/"><img src="/public/images/NsLogo.png" alt="" /> </Link>
+          <Link to="/">
+            <img src="/images/NsLogo.png" alt="" />{" "}
+          </Link>
         </h1>
         <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
       </div>

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import useProducts from "../hooks/useProducts";
 import { styled } from "styled-components";
 import numToMoneyFormat from "../func/numToMoneyFormat";
@@ -9,41 +11,26 @@ import { notifySuccess, notifyWarning } from "../Components/toast/Notify";
 import { useParams } from "react-router";
 import LoadingModal from "../Components/loading/LoadingModal";
 import NotFound from "./NotFound";
+import "swiper/css/navigation";
 
 const StyleDetail = styled.section`
   display: flex;
-  max-height: 77vh;
-
+  gap: 50px;
   .image-box {
     width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .main-image {
-    flex: 1;
-    width: 80%;
     img {
-      object-fit: cover;
       width: 100%;
       height: 100%;
     }
   }
-  .sub-image {
-    width: 80%;
-    display: flex;
-    gap: 5px;
-    img {
-      border: 1px solid var(--gray-300);
-      cursor: pointer;
-      width: 30%;
-      transition: 0.2s;
-      &.active {
-        border-color: var(--gray-700);
-      }
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: var(--positive);
+    transition: all.2s;
+    &:hover {
+      color: var(--primary);
     }
   }
-
   .product-description {
     display: flex;
     flex-direction: column;
@@ -70,7 +57,7 @@ const StyleDetail = styled.section`
       font-size: 20px;
       margin-top: 20px;
       cursor: pointer;
-      &:hover{
+      &:hover {
         background: var(--primary);
       }
     }
@@ -79,24 +66,25 @@ const StyleDetail = styled.section`
 export default function ProductDetail() {
   const { uid } = useAuthContext();
   const { productId } = useParams();
-  const {productsQuery: { isLoading, error, data: products }} = useProducts();
-  const product = products?.filter(el => el.id === productId)[0]
+  const {
+    productsQuery: { isLoading, error, data: products },
+  } = useProducts();
+  const product = products?.filter((el) => el.id === productId)[0];
   const [selectedOption, setSelectedOption] = useState(null);
-  const [currentMainImage, setCurrentMainImage] = useState(product?.mainImage);
 
-  useEffect(() => setCurrentMainImage(product?.mainImage), [product])
-  if (isLoading) return <LoadingModal /> 
-  if (error) return <NotFound />
-  const {description, mainImage, options, price, subImage, title} = product
-  const currentImageHandler = (e) =>  setCurrentMainImage(e.target.src)
-  
-  const activeOptionHandler = (num) => setSelectedOption(num)
-  
-  
+  if (isLoading) return <LoadingModal />;
+  if (error) return <NotFound />;
+  const { description, mainImage, options, price, subImage, title } = product;
+
+  const activeOptionHandler = (num) => {
+    if (selectedOption === num) setSelectedOption(null);
+    else setSelectedOption(num);
+  };
+
   const cartAddHandler = async () => {
     if (!uid) {
-      notifyWarning('로그인이 필요한 서비스입니다.')
-    } else if (!selectedOption) { 
+      notifyWarning("로그인이 필요한 서비스입니다.");
+    } else if (!selectedOption) {
       notifyWarning("옵션을 선택해주세요.");
     } else {
       const newProduct = {
@@ -105,33 +93,27 @@ export default function ProductDetail() {
         quantity: 1,
       };
       await addOrUpdateToCart(uid, newProduct, selectedOption);
-      notifySuccess('장바구니에 추가되었습니다.')
+      notifySuccess("장바구니에 추가되었습니다.");
     }
-
-
-  }
+  };
 
   return (
     <StyleDetail>
-      <div className="image-box">
-        <div className="main-image">
-          <img src={currentMainImage} alt="main image" />
-        </div>
-        <div className="sub-image">
-          <img
-            src={mainImage}
-            alt=""
-            onClick={currentImageHandler}
-            className={currentMainImage === mainImage ? "active" : ""}
-          />
-          <img
-            src={subImage}
-            alt=""
-            onClick={currentImageHandler}
-            className={currentMainImage === subImage ? "active" : ""}
-          />
-        </div>
-      </div>
+      <Swiper
+        className="image-box"
+        modules={[Navigation]}
+        spaceBetween={0}
+        navigation={{ clickable: true }}
+        loop={true}
+      >
+        <SwiperSlide>
+          <img src={mainImage} alt="product Main Image" />
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <img src={subImage} alt="product Sub Image" />
+        </SwiperSlide>
+      </Swiper>
       <div className="product-description">
         <h3>{title}</h3>
         <span>{numToMoneyFormat(price)}₩</span>

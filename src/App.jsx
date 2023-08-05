@@ -17,8 +17,6 @@ const StyleApp = styled.main`
     height: 100vh;
     position: relative;
   }
-
-
 `;
 const queryClient = new QueryClient();
 
@@ -54,7 +52,7 @@ function App() {
         </main>
       </StyleApp>
       {loginModal && <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />}
-      <NotifyContainer/>
+      <NotifyContainer />
     </QueryClientProvider>
   );
 }
