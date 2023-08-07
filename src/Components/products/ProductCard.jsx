@@ -13,7 +13,7 @@ const StyleProductCard = styled.li`
   cursor: pointer;
   box-shadow: 1px 1px 3px 1px var(--gray-100);
   transition: all.2s;
-  
+
   &:hover {
     box-shadow: 1px 1px 3px 1px var(--gray-300);
   }
@@ -77,7 +77,6 @@ export default function ProductCard({ product, grid }) {
       </div>
       <div className="product-info">
         <div>
-          {" "}
           <span> {title}</span>
           <span>{numToMoneyFormat(product.price)}₩</span>
         </div>

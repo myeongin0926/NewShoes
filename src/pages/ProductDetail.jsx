@@ -12,6 +12,7 @@ import LoadingModal from "../Components/loading/LoadingModal";
 import NotFound from "./NotFound";
 import "swiper/css/navigation";
 import useCart from "../hooks/useCart";
+
 const StyleDetail = styled.section`
   display: flex;
   gap: 50px;

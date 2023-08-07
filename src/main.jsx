@@ -7,9 +7,11 @@ import Home from "./pages/Home.jsx";
 import NewProducts from "./pages/NewProducts.jsx";
 import Cart from "./pages/Cart.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import Products from "./pages/Products";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { SortOptionContextProvider } from "./context/SortOptionContext.jsx";
+import { MenuContextProvider } from "./context/MenuContext";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,10 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, path: "/", element: <Home /> },
+      {
+        path: "/products/:type",
+        element: <Products />,
+      },
       {
         path: "/detail/:productId",
         element: <ProductDetail />,
@@ -45,9 +51,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <SortOptionContextProvider>
-    <AuthContextProvider>
-      <RouterProvider router={router} />
-    </AuthContextProvider>
-  </SortOptionContextProvider>
+  <MenuContextProvider>
+    <SortOptionContextProvider>
+      <AuthContextProvider>
+        <RouterProvider router={router} />
+      </AuthContextProvider>
+    </SortOptionContextProvider>
+  </MenuContextProvider>
 );

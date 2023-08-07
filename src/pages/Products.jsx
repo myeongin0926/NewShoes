@@ -1,10 +1,10 @@
-import LoadingModal from "../loading/LoadingModal";
-import ProductCard from "./ProductCard";
+import LoadingModal from "../Components/loading/LoadingModal";
+import ProductCard from "../Components/products/ProductCard";
 import { styled } from "styled-components";
-import useProducts from "../../hooks/useProducts";
-import SortOptionBar from "./SortOptionBar";
-import { useSortOptionContext } from "../../context/SortOptionContext";
-import { desktop, mobile, tabletS } from "../Them";
+import useProducts from "../hooks/useProducts";
+import SortOptionBar from "../Components/products/SortOptionBar";
+import { useSortOptionContext } from "../context/SortOptionContext";
+import { desktop, mobile, tabletS } from "../Components/Them";
 
 const StyleProducts = styled.ul`
   display: ${(props) => (props.$grid ? "grid" : "flex")};

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import OptionDropDown from "./OptionDropDown";
+import OptionDropDown from "../home/OptionDropDown";
 import { MdOutlineViewDay, MdOutlineGridView } from "react-icons/md";
 import { BiReset } from "react-icons/bi";
 import { useSortOptionContext } from "../../context/SortOptionContext";

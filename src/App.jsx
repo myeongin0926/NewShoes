@@ -2,19 +2,18 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
 import LoginModal from "./Components/login/LoginModal";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useAuthContext } from "./context/AuthContext";
 import { adminUser } from "./api/firebase";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NotifyContainer } from "./Components/toast/Notify.jsx";
-
+import Menu from "./Components/Menu/Menu";
 const StyleApp = styled.main`
   & > main {
     margin: 0 auto;
     width: var(--inner);
-    padding-top: 100px;
+    padding-top: 120px;
     height: 100vh;
-    /* position: relative; */
   }
 `;
 
@@ -58,6 +57,7 @@ function App() {
       {isloginModalOpen && (
         <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />
       )}
+      <Menu />
       <NotifyContainer />
     </QueryClientProvider>
   );
