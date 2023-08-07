@@ -7,7 +7,6 @@ export default function useCart() {
   const cartQuery = useQuery(
     ["carts", uid || ""],
     () => {
-      console.log("카트 업데이트");
       return getCart(uid);
     },
     {

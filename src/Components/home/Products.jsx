@@ -4,11 +4,22 @@ import { styled } from "styled-components";
 import useProducts from "../../hooks/useProducts";
 import SortOptionBar from "./SortOptionBar";
 import { useSortOptionContext } from "../../context/SortOptionContext";
+import { desktop, mobile, tabletS } from "../Them";
+
 const StyleProducts = styled.ul`
   display: ${(props) => (props.$grid ? "grid" : "flex")};
   flex-direction: column;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 20px;
+  ${desktop} {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  ${tabletS} {
+    grid-template-columns: 1fr 1fr;
+  }
+  ${mobile} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default function Products() {

@@ -6,7 +6,6 @@ import { styled } from "styled-components";
 import numToMoneyFormat from "../func/numToMoneyFormat";
 import Options from "../Components/home/Options";
 import { useAuthContext } from "../context/AuthContext";
-import { addOrUpdateToCart } from "../api/firebase";
 import { notifySuccess, notifyWarning } from "../Components/toast/Notify";
 import { useParams } from "react-router";
 import LoadingModal from "../Components/loading/LoadingModal";

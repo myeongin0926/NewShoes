@@ -1,20 +1,19 @@
 import { styled } from "styled-components";
 import numToMoneyFormat from "../../func/numToMoneyFormat";
 import { useNavigate } from "react-router-dom";
+
 const StyleProductCard = styled.li`
-  width: 100%;
-  background-color: white;
   display: flex;
   border: 1px solid var(--gray-300);
   flex-direction: ${(props) => (props.$grid ? "column" : "")};
-  height: ${(props) => (props.$grid ? "auto" : "250px")};
-  min-width: 250px;
+  min-width: 200px;
   gap: 10px;
   margin-bottom: ${(props) => (props.$grid ? "40px" : "10px")};
   position: relative;
   cursor: pointer;
   box-shadow: 1px 1px 3px 1px var(--gray-100);
   transition: all.2s;
+  
   &:hover {
     box-shadow: 1px 1px 3px 1px var(--gray-300);
   }

@@ -3,8 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const notifySuccess = (message) =>
   toast.success(message, {
-    position: "top-right",
-    autoClose: 2000,
+    position: "top-center",
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     draggable: true,
@@ -13,8 +13,8 @@ export const notifySuccess = (message) =>
 
 export const notifyWarning = (message) =>
   toast.warn(message, {
-    position: "top-right",
-    autoClose: 2000,
+    position: "top-center",
+    autoClose: 1000,
     hideProgressBar: false,
     closeOnClick: true,
     draggable: true,
@@ -23,6 +23,7 @@ export const notifyWarning = (message) =>
 
 export const NotifyContainer = () => (
   <ToastContainer
+    pauseOnHover={false}
     position="top-right"
     autoClose={1000}
     hideProgressBar={false}
@@ -30,7 +31,7 @@ export const NotifyContainer = () => (
     closeOnClick
     rtl={false}
     draggable
-    limit="3"
+    limit="1"
     pauseOnFocusLoss={true}
     style={{ fontWeight: "bold" }}
   />

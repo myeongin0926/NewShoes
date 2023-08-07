@@ -4,10 +4,9 @@ import { styled } from "styled-components";
 import CartPayment from "../Components/cart/CartPayment";
 import useCart from "../hooks/useCart";
 
-
 const StyleCart = styled.section`
   height: 80%;
-  ul{
+  ul {
     height: 100%;
     overflow: auto;
     margin-bottom: 10px;
@@ -23,7 +22,7 @@ const StyleCart = styled.section`
       background: var(--positive);
     }
   }
-   .empty-cart {
+  .empty-cart {
     height: 100%;
     display: flex;
     align-items: center;
@@ -31,12 +30,14 @@ const StyleCart = styled.section`
     font-size: 30px;
     font-weight: bold;
     color: var(--gray-500);
-   }
+  }
 `;
 export default function Cart() {
-  const { cartQuery: { isLoading, error, data: products } } = useCart();
-  if (isLoading) return <LoadingModal />
-  if (error) return 'error'
+  const {
+    cartQuery: { isLoading, error, data: products },
+  } = useCart();
+  if (isLoading) return <LoadingModal />;
+  if (error) return "error";
   return (
     <StyleCart>
       {products.length ? (
@@ -54,5 +55,3 @@ export default function Cart() {
     </StyleCart>
   );
 }
-
-

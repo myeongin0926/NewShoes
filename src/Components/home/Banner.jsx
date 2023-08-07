@@ -4,13 +4,13 @@ import { styled } from "styled-components";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useNavigate } from "react-router";
-
+s
 const StyleSwiper = styled.section`
   .swiper-slide {
     cursor: pointer;
     img {
       width: 100%;
-      height: 350px;
+      height: 330px;
       object-fit: cover;
     }
   }

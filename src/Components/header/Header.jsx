@@ -6,7 +6,6 @@ const StyleHeader = styled.header`
   width: 100%;
   display: flex;
   position: fixed;
-  transition: all.2s;
   align-items: center;
   z-index: 10;
   height: 80px;
@@ -18,16 +17,12 @@ const StyleHeader = styled.header`
     margin: 0 auto;
   }
   h1 {
-    margin: 0 auto;
     margin-left: -7px;
     width: var(--inner);
-    font-size: 30px;
-    position: relative;
-    z-index: 1;
     display: flex;
-    padding-top: 10px;
+    padding-top: 13px;
     img {
-      width: 70px;
+      width: 60px;
     }
   }
 `;

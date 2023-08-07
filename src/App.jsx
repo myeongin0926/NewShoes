@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
 import LoginModal from "./Components/login/LoginModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuthContext } from "./context/AuthContext";
 import { adminUser } from "./api/firebase";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,9 +14,10 @@ const StyleApp = styled.main`
     width: var(--inner);
     padding-top: 100px;
     height: 100vh;
-    position: relative;
+    /* position: relative; */
   }
 `;
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -27,10 +28,10 @@ const queryClient = new QueryClient({
 
 function App() {
   const { setUser } = useAuthContext();
-  const [loginModal, setLoginModal] = useState(false);
+  const [isloginModalOpen, setIsLoginModalOpen] = useState(false);
   const navigation = useNavigate();
   const loginModalHandler = (boo) => {
-    setLoginModal(boo);
+    setIsLoginModalOpen(boo);
   };
 
   const handleLogin = (user) => {
@@ -54,7 +55,9 @@ function App() {
           <Outlet />
         </main>
       </StyleApp>
-      {loginModal && <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />}
+      {isloginModalOpen && (
+        <LoginModal handleLogin={handleLogin} loginModalHandler={loginModalHandler} />
+      )}
       <NotifyContainer />
     </QueryClientProvider>
   );

@@ -1,14 +1,14 @@
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
 import "./index.css";
+import App from "./App.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import Home from "./pages/Home.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthContextProvider } from "./context/AuthContext.jsx";
 import NewProducts from "./pages/NewProducts.jsx";
 import Cart from "./pages/Cart.jsx";
 import ProtectedRoute from "./pages/ProtectedRoute.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { SortOptionContextProvider } from "./context/SortOptionContext.jsx";
 
 const router = createBrowserRouter([

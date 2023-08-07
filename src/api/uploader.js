@@ -12,7 +12,6 @@ export async function uploadImage(file) {
     });
 
     const jsonData = await result.json();
-    console.log(jsonData.url);
 
     return jsonData.url;
   } catch (e) {
