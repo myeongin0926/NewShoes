@@ -68,7 +68,7 @@ const StyleLogin = styled.section`
     padding: 0px 30px;
     background-color: #cae2fd;
     border-right: 1px solid var(--gray-500);
-    background-image: url("/public/images/loginBackground.png");
+    background-image: url("https://github.com/myeongin0926/NewShoes/blob/main/public/images/loginBackground.png?raw=true");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;

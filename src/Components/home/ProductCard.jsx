@@ -76,7 +76,7 @@ export default function ProductCard({ product, grid }) {
       <div className="product-image-box">
         <img
           className="product-logo"
-          src={`/public/images/${category}logo.png`}
+          src={`https://github.com/myeongin0926/NewShoes/blob/main/public/images/${category}logo.png?raw=true`}
           alt="product logo"
         />
         <img className="product-image" src={mainImage} alt="product image" />

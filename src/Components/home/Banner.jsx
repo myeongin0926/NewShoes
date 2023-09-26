@@ -40,23 +40,23 @@ export default function Banner() {
   const navigate = useNavigate();
   const banners = [
     {
-      img: "/public/images/superstartWhiteBanner.png",
+      img: "https://github.com/myeongin0926/NewShoes/blob/main/public/images/superstartWhiteBanner.png?raw=true",
       link: "/detail/cf6fa536-a132-4f83-be5d-e3de33669d40",
     },
     {
-      img: "/public/images/airforceBanner.png",
+      img: "https://github.com/myeongin0926/NewShoes/blob/main/public/images/airforceBanner.png?raw=true",
       link: "/detail/c8901886-8d2c-4bb2-9d8e-1ebb4f705a0f",
     },
     {
-      img: "/public/images/superstarBlackBanner.png",
+      img: "https://github.com/myeongin0926/NewShoes/blob/main/public/images/superstarBlackBanner.png?raw=true",
       link: "/detail/3aadf4c8-6ef4-43f8-98b0-08140c9a1977",
     },
     {
-      img: "/public/images/airmaxBanner.png",
+      img: "https://github.com/myeongin0926/NewShoes/blob/main/public/images/airmaxBanner.png?raw=true",
       link: "/detail/9b455c09-94ac-4591-ad9d-a8b52c36a6fc",
     },
     {
-      img: "/public/images/dunkLowBanner.png",
+      img: "https://github.com/myeongin0926/NewShoes/blob/main/public/images/dunkLowBanner.png?raw=true",
       link: "/detail/db8ebff7-b5d8-40c4-9dc5-0d4a219404eb",
     },
   ];

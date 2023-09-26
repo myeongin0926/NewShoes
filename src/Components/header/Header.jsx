@@ -39,7 +39,10 @@ export default function Header({ loginModalHandler, handleLogout }) {
       <div className="inner">
         <h1>
           <Link to="/">
-            <img src="/public/images/NsLogo.png" alt="" />{" "}
+            <img
+              src="https://github.com/myeongin0926/NewShoes/blob/main/public/images/NsLogo.png?raw=true"
+              alt=""
+            />
           </Link>
         </h1>
         <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />
