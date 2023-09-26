@@ -25,6 +25,5 @@ dist-ssr
 .env
 
 package-lock.json
-package.json
 vite.config.json
 .eslintrc.cjs
