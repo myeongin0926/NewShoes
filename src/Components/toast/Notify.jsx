@@ -1,6 +1,6 @@
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import React from "react";
 export const notifySuccess = (message) =>
   toast.success(message, {
     position: "top-right",

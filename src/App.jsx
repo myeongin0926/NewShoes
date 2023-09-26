@@ -1,4 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom";
+import React from "react";
 import Header from "./Components/header/Header";
 import { styled } from "styled-components";
 import LoginModal from "./Components/login/LoginModal";

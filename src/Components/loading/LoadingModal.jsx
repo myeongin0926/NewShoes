@@ -1,5 +1,6 @@
 import { Oval } from "react-loader-spinner";
 import { styled } from "styled-components";
+import React from "react";
 const StyleLoading = styled.div`
     top: 0;
     left: 0;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import { uploadImage } from "../api/uploader";
 import LoadingModal from "../Components/loading/LoadingModal";

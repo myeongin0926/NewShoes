@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import { IoIosArrowDown } from "react-icons/io";
 
@@ -64,7 +65,7 @@ export default function OptionDropDown({ sortOptionHandler, sortOption, options,
       </div>
       <ul>
         {options.map((menu) => (
-          <li  onClick={() => dropMenuHandler(menu.option, menu.text, menu.value)} key={menu.text}>
+          <li onClick={() => dropMenuHandler(menu.option, menu.text, menu.value)} key={menu.text}>
             {menu.text}
           </li>
         ))}

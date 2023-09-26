@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import React from "react";
 import Products from "../Components/home/Products";
 import Banner from "../Components/home/Banner";
 const StyleHome = styled.section`

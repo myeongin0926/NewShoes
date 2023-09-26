@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import useProducts from "../hooks/useProducts";

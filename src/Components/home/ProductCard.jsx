@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import React from "react";
 import numToMoneyFormat from "../../func/numToMoneyFormat";
 import { useNavigate } from "react-router-dom";
 const StyleProductCard = styled.li`
@@ -73,7 +74,11 @@ export default function ProductCard({ product, grid }) {
   return (
     <StyleProductCard onClick={productDetailHandler} $grid={grid}>
       <div className="product-image-box">
-        <img className="product-logo" src={`/images/${category}logo.png`} alt="product logo" />
+        <img
+          className="product-logo"
+          src={`/public/images/${category}logo.png`}
+          alt="product logo"
+        />
         <img className="product-image" src={mainImage} alt="product image" />
       </div>
       <div className="product-info">

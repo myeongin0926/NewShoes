@@ -3,7 +3,7 @@ import CartItem from "../Components/cart/CartItem";
 import { styled } from "styled-components";
 import CartPayment from "../Components/cart/CartPayment";
 import useCart from "../hooks/useCart";
-
+import React from "react";
 
 const StyleCart = styled.section`
   height: 80%;

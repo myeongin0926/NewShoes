@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import React from "react";
 const StyleNotFound = styled.section`
   position: fixed;
   top: 0;
@@ -9,7 +10,7 @@ const StyleNotFound = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 export default function NotFound() {
   return <StyleNotFound>NOtFound</StyleNotFound>;
 }

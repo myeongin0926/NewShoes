@@ -1,4 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import React from "react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { styled } from "styled-components";
 import "swiper/css";
@@ -39,23 +40,23 @@ export default function Banner() {
   const navigate = useNavigate();
   const banners = [
     {
-      img: "/images/superstartWhiteBanner.png",
+      img: "/public/images/superstartWhiteBanner.png",
       link: "/detail/cf6fa536-a132-4f83-be5d-e3de33669d40",
     },
     {
-      img: "/images/airforceBanner.png",
+      img: "/public/images/airforceBanner.png",
       link: "/detail/c8901886-8d2c-4bb2-9d8e-1ebb4f705a0f",
     },
     {
-      img: "/images/superstarBlackBanner.png",
+      img: "/public/images/superstarBlackBanner.png",
       link: "/detail/3aadf4c8-6ef4-43f8-98b0-08140c9a1977",
     },
     {
-      img: "/images/airmaxBanner.png",
+      img: "/public/images/airmaxBanner.png",
       link: "/detail/9b455c09-94ac-4591-ad9d-a8b52c36a6fc",
     },
     {
-      img: "/images/dunkLowBanner.png",
+      img: "/public/images/dunkLowBanner.png",
       link: "/detail/db8ebff7-b5d8-40c4-9dc5-0d4a219404eb",
     },
   ];

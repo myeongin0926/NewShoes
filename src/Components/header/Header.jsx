@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React from "react";
 import { styled } from "styled-components";
 import UserActions from "./UserActions";
 
@@ -38,7 +39,7 @@ export default function Header({ loginModalHandler, handleLogout }) {
       <div className="inner">
         <h1>
           <Link to="/">
-            <img src="/images/NsLogo.png" alt="" />{" "}
+            <img src="/public/images/NsLogo.png" alt="" />{" "}
           </Link>
         </h1>
         <UserActions handleLogout={handleLogout} loginModalHandler={loginModalHandler} />

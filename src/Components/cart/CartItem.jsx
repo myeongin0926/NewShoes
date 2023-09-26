@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import numToMoneyFormat from "../../func/numToMoneyFormat";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";

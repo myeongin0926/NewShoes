@@ -1,4 +1,5 @@
 import LoadingModal from "../loading/LoadingModal";
+import React from "react";
 import ProductCard from "./ProductCard";
 import { styled } from "styled-components";
 import useProducts from "../../hooks/useProducts";

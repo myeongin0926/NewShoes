@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import LoadingModal from "../loading/LoadingModal";
 import { googleLogin, emailLogin } from "../../api/firebase";
@@ -14,7 +15,7 @@ const StyleLogin = styled.section`
   align-items: center;
   justify-content: center;
   transition: all.2s;
-  
+
   .form-box {
     display: flex;
     flex-direction: column;
@@ -51,7 +52,7 @@ const StyleLogin = styled.section`
         color: var(--positive);
         cursor: pointer;
         transition: all.2s;
-        &:hover{
+        &:hover {
           color: var(--primary);
         }
       }
@@ -67,7 +68,7 @@ const StyleLogin = styled.section`
     padding: 0px 30px;
     background-color: #cae2fd;
     border-right: 1px solid var(--gray-500);
-    background-image: url("/images/loginBackground.png");
+    background-image: url("/public/images/loginBackground.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
@@ -214,11 +215,17 @@ export default function LoginModal({ loginModalHandler, handleLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      emailLogin(setIsLoading, loginModalHandler, loginSwitch, form, idInputRef, passwordInputRef, setForm).then(
-        (res) => {
-          if (res) handleLogin(res) 
-        }
-      );
+      emailLogin(
+        setIsLoading,
+        loginModalHandler,
+        loginSwitch,
+        form,
+        idInputRef,
+        passwordInputRef,
+        setForm
+      ).then((res) => {
+        if (res) handleLogin(res);
+      });
     }
   };
   const handleGoogleSubmit = () => {
