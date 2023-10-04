@@ -79,7 +79,7 @@ export default function CartItem({ product }) {
   const { addOrUpdateItem, removeItem } = useCart();
   const productDetailHandler = () => navigation(`/detail/${id}`);
   const handleMinus = () => {
-    if (quantity < 2);
+    if (quantity < 2) handleDelete();
     else {
       addOrUpdateItem.mutate({ ...product, quantity: quantity - 1 });
     }
